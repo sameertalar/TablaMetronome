@@ -1,88 +1,21 @@
-// Add your code here
-
 $(document).ready(function () {
-  var canvas = document.getElementById("canvas");
-  var ctx = canvas.getContext("2d");
+  var canvas, ctx, context;
+  var _isPlaying, _animationFrameId, _tempo, _beats;
+  var _notes, _seed, noteCount, accentPitch, offBeatPitch;
+  var boleSeparator, boleGroupSeparator, restBole, matraDotColors, matraColors;
+  var canvasMarginX, canvasMarginY, matraHeight, matraWidth;
+  var canvasYPosition, lineWidth, barHeight;
+  var _TrackingPoints, _move;
 
-  var _isPlaying = false;
-  var _animationFrameId;
-  var _tempo = 60;
-  var _beats = 4;
-  var _notes = "";
-
-  // set starting values
-
-  var percent = 0;
-  const tempo = 0.2;
-  var direction = tempo;
-
-  const canvasMarginX = 20;
-  const canvasMarginY = 40;
-  const matraHeight = 125;
-  const matraWidth = 200;
-  const canvasMargin = 20;
-  const canvasYPosition = 40;
-  const boleSeparator = ".";
-  const boleGroupSeparator = "|";
-  const restBole = "_";
-
-  var _move = {
-    x: canvasMarginX,
-    y: canvasMarginY,
-  };
-
-  var _TrackingPoints = new Array();
-
-  const matraDotColors = [
-    "#dd2c00",
-    "green",
-    "#007bff",
-    "#ffc107",
-    "#dd2c00",
-    "green",
-    "#007bff",
-    "#ffc107",
-  ];
-  const matraColors = [
-    "#F6B5A7",
-    "#A7F6D2",
-    "#A7BEF6",
-    "#F6F4A7",
-    "#F6B5A7",
-    "#A7F6D2",
-    "#A7BEF6",
-    "#F6F4A7",
-  ];
-  const lineWidth = 10;
-  const barHeight = 40;
-
-  window.AudioContext = window.AudioContext || window.webkitAudioContext;
-  var context = new AudioContext();
-  var timer,
-    noteCount,
-    counting,
-    accentPitch = 380,
-    offBeatPitch = 200;
-
-  var curTime = 0.0;
-  var _seed;
-
+  // Load
   init();
 
-  // start the animation
-
-  function init() {
-    // Load
-    $("#btnPlay").on("click", play);
-    $("#btnPause").on("click", pause);
-    $("#btnRestart").on("click", restart);
-    ctx.canvas.width = window.innerWidth - 50;
-    ctx.canvas.height = 300;
-    //$("#canvasDiv").height(window.innerHeight - 500);
-    //$("#canvasDiv").width(window.innerWidth - 30);
-  }
-
   function play() {
+    noteCount = 0;
+    _TrackingPoints = new Array();
+    _isPlaying = true;
+    _seed = (_tempo * 10) / matraWidth;
+
     _beats = $("#beatsText").val();
     _notes = $("#notesText")
       .val()
@@ -90,33 +23,23 @@ $(document).ready(function () {
       .replace(/(\r\n|\n|\r)/gm, "|")
       .replace(" ", "|");
 
-    noteCount = 0;
-    _TrackingPoints = new Array();
+    toggalPlay();
     drawTrack(true);
+    animate();
+
+    ctx.canvas.height = _TrackingPoints[_TrackingPoints.length - 1].y + 100;
 
     console.log(_TrackingPoints);
-    _seed = (_tempo * 10) / matraWidth;
-    // console.log("Seed", _seed);
-
-    animate();
-    _isPlaying = true;
-
-    $("#btnPlay").hide();
-    $("#btnPause").show();
-    $("#btnRestart").show();
-    ctx.canvas.height = _TrackingPoints[_TrackingPoints.length - 1].y + 100;
+ 
   }
 
   function pause() {
-    window.cancelAnimationFrame(_animationFrameId);
     _isPlaying = false;
-
-    $("#btnPlay").show();
-    $("#btnPause").hide();
+    toggalPlay();
+    window.cancelAnimationFrame(_animationFrameId);
   }
 
   function restart() {
-    console.log("Restart called");
     window.cancelAnimationFrame(_animationFrameId);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     _move = {
@@ -253,9 +176,7 @@ $(document).ready(function () {
     }
   }
 
-  function togglePlayPause() {
-    // _isPlaying
-  }
+
 
   function animate() {
     draw(_seed);
@@ -354,4 +275,80 @@ $(document).ready(function () {
     _tempo = this.value;
     $("#rangeTempLabel").text(this.value);
   });
+
+  function init() {
+    // Load
+    setConstants();
+
+    $("#btnPlay").on("click", play);
+    $("#btnPause").on("click", pause);
+    $("#btnRestart").on("click", restart);
+    ctx.canvas.width = window.innerWidth - 50;
+    ctx.canvas.height = 300;
+    //$("#canvasDiv").height(window.innerHeight - 500);
+    //$("#canvasDiv").width(window.innerWidth - 30);
+  }
+
+  function toggalPlay() {
+    if (_isPlaying) {
+      $("#btnPlay").hide();
+      $("#btnPause").show();
+      $("#btnRestart").show();
+    } else {
+      $("#btnPlay").show();
+      $("#btnPause").hide();
+    }
+  }
+
+  function setConstants() {
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    context = new AudioContext();
+    _TrackingPoints = new Array();
+
+    _tempo = 60;
+    _beats = 4;
+    _isPlaying = false;
+    _notes = "";
+
+    canvasMarginX = 20;
+    canvasMarginY = 40;
+    matraHeight = 125;
+    matraWidth = 200;
+    canvasYPosition = 40;
+    lineWidth = 10;
+    barHeight = 40;
+    (accentPitch = 380), (offBeatPitch = 200);
+
+    boleSeparator = ".";
+    boleGroupSeparator = "|";
+    restBole = "_";
+
+    _move = {
+      x: canvasMarginX,
+      y: canvasMarginY,
+    };
+
+    matraDotColors = [
+      "#dd2c00",
+      "green",
+      "#007bff",
+      "#ffc107",
+      "#dd2c00",
+      "green",
+      "#007bff",
+      "#ffc107",
+    ];
+    matraColors = [
+      "#F6B5A7",
+      "#A7F6D2",
+      "#A7BEF6",
+      "#F6F4A7",
+      "#F6B5A7",
+      "#A7F6D2",
+      "#A7BEF6",
+      "#F6F4A7",
+    ];
+  }
 });
