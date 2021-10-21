@@ -1,0 +1,10 @@
+body {
+  background-color: white;
+}
+canvas {
+  margin: auto;
+  display: block;
+}
+.tinytext {
+  width: 25px;
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Forked from http://jsfiddle.net/m1erickson/LumMX/ -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sameer's Metronome</title>
+    <meta
+      name="description"
+      content="Easy to use online metronome. Free, ad-free and open source. Set or tap tempo."
+    />
+    <meta
+      name="keywords"
+      content="Metronome,tap tempo,free,ad-free,open-source"
+    />
+    <meta name="author" content="Saeer Talar" />
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6 text-center"></div>
+      </div>
+      <!-- Controls start  -->
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-sm-6 text-center">
+              <div class="text-center">
+                <button id="btnPlay" type="button" class="btn btn-primary">
+                  Play
+                </button>
+                <button
+                  id="btnPause"
+                  type="button"
+                  class="btn btn-warning"
+                  style="display: none"
+                >
+                  Pause
+                </button>
+                <button
+                  id="btnRestart"
+                  type="button"
+                  class="btn btn-secondary"
+                  style="display: none"
+                >
+                  Restart
+                </button>
+
+                <label class="form-check-label py-10" for="audioCheck"
+                  >Play Sound</label
+                >
+                <input
+                  type="checkbox"
+                  class="form-check-audio"
+                  id="audioCheck"
+                />
+
+                <label class="py-5" for="beatsText">Beats</label>
+                <input id="beatsText" type="text" value="8" class="tinytext" />
+              </div>
+            </div>
+
+            <div class="col-sm-4 text-center">
+              <label for="rangeAlertAudioVolume">
+                Tempo
+                <span id="rangeTempLabel" class="badge badge-light">60</span>
+              </label>
+              <input
+                class="form-control-range"
+                id="rangeTempo"
+                type="range"
+                min="20"
+                max="100"
+                step="5"
+                value="60"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-5">
+          <textarea id="notesText" class="form-control" rows="2" title="Notes">
+धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	तिं.ना|ता.ता	ती.र.कि.ट	ता.ता	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	धिं.ना</textarea
+          >
+        </div>
+      </div>
+
+      <!-- Controls end  -->
+      <div class="row mt-10">
+        <div class="col-lg border rounded text-center">
+          <canvas
+            id="canvas"
+            width="1800"
+            height="800"
+            class="text-center"
+          ></canvas>
+        </div>
+      </div>
+      <!-- Empty  -->
+      <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"></div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+      integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+    <script>
+      $(document).ready(function () {});
+    </script>
+  </body>
+</html>
