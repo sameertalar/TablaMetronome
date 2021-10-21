@@ -76,7 +76,10 @@ $(document).ready(function () {
     $("#btnPlay").on("click", play);
     $("#btnPause").on("click", pause);
     $("#btnRestart").on("click", restart);
-    ctx.canvas.width = window.innerWidth - 40;
+    ctx.canvas.width = window.innerWidth - 50;
+    ctx.canvas.height = 300;
+    //$("#canvasDiv").height(window.innerHeight - 500);
+    //$("#canvasDiv").width(window.innerWidth - 30);
   }
 
   function play() {
@@ -88,6 +91,7 @@ $(document).ready(function () {
       .replace(" ", "|");
 
     noteCount = 0;
+    _TrackingPoints = new Array();
     drawTrack(true);
 
     console.log(_TrackingPoints);
@@ -145,7 +149,12 @@ $(document).ready(function () {
           (_notes.split(boleGroupSeparator).length / _beats) * matraHeight
       ) {
         _move.y = canvasMarginY;
+        $("#canvasDiv").scrollTop(-100);
       }
+    }
+
+    if (_move.y > 600) {
+      $("#canvasDiv").scrollTop(_move.y - canvasMarginY - matraHeight * 3);
     }
   }
 
@@ -193,6 +202,13 @@ $(document).ready(function () {
           pathY - lineWidth / 2,
           1,
           barHeight + lineWidth / 2
+        );
+
+        //ctx.fillStyle = "white";
+        ctx.fillText(
+          (i + 1) / _beats,
+          pathX + lineWidth,
+          pathY + lineWidth * 2
         );
       }
 

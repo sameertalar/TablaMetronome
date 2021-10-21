@@ -66,8 +66,13 @@
                   id="audioCheck"
                 />
 
-                <label class="py-5" for="beatsText">Beats</label>
-                <input id="beatsText" type="text" value="8" class="tinytext" />
+                <label class="pl-5" for="beatsText">Beats</label>
+                <input
+                  id="beatsText"
+                  type="text"
+                  value="8"
+                  class="tinytext text-center"
+                />
               </div>
             </div>
 
@@ -97,13 +102,12 @@
 
       <!-- Controls end  -->
       <div class="row mt-10">
-        <div class="col-lg border rounded text-center">
-          <canvas
-            id="canvas"
-            width="1800"
-            height="800"
-            class="text-center"
-          ></canvas>
+        <div
+          id="canvasDiv"
+          class="col-lg overflow-auto"
+          style="overflow: auto; border: 1px solid pink; height: 80vh"
+        >
+          <canvas id="canvas" width="1800" height="800"></canvas>
         </div>
       </div>
       <!-- Empty  -->
@@ -112,7 +116,24 @@
         <div class="col-sm-4"></div>
         <div class="col-sm-4"></div>
       </div>
+
+      <div class="row">
+        <div class="col-sm-4 pl-10">
+          <div style="padding-left: 50px">
+            <div>
+              <span class="badge text-center">Teen Taal</span>
+            </div>
+            <br />
+            धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
+            धा|तिं|तिं|ता|ता|धिं|धिं|धा<br />
+            धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|_.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|_.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा._|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता._|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट<br />धा.धिं|धा._|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
+          </div>
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"></div>
+      </div>
     </div>
+    <!-- Empty  -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script
