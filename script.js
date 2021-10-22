@@ -23,7 +23,9 @@ $(document).ready(function () {
     _beats = $("#beatsText").val();
     _notes = $("#notesText")
       .val()
-      .replace(/\t/g, "|")      .replace(/(\r\n|\n|\r)/gm, "|")          .replace(" ", "|")   ;
+      .replace(/\t/g, "|")
+      .replace(/(\r\n|\n|\r)/gm, "|")
+      .replace(" ", "|");
 
     togglePlay();
     setSizes();
@@ -61,13 +63,9 @@ $(document).ready(function () {
 
   // draw the current frame based on sliderValue
   function draw(seed) {
-
-
-
     drawTrack();
 
     drawMovingRect();
-   
 
     // Play Audio
     playNote();
@@ -122,10 +120,11 @@ $(document).ready(function () {
 
       ctx.beginPath();
       ctx.moveTo(pathX, pathY);
+
+      drawMeasure(pathX, pathY);
+
       pathX = pathX + measureWidth;
       // vertical bars
-
-      drawLine(pathX, pathY, 5, trailColors[i % _beats]);
 
       drawDot(
         pathX - measureWidth,
@@ -169,13 +168,7 @@ $(document).ready(function () {
 
         if (j !== 0) {
           bolColor = dotColors[i % _beats];
-          drawDot(
-            bolX,
-            pathY,
-            trailSize * 1.5,
-              "white",
-            bolColor
-          );
+          drawDot(bolX, pathY, trailSize * 1.5, "white", bolColor);
         } else {
           // vertical bars
           drawBar(
@@ -186,21 +179,13 @@ $(document).ready(function () {
             disabled(bolX, pathY) ? disabledColor : dotColors[i % _beats],
             false
           );
-          }
+        }
 
-          if (disabled(bolX, pathY)) {
+        if (disabled(bolX, pathY)) {
+          bolColor = j === 0 ? "White" : "Black";
+        }
 
-              bolColor = j === 0 ? "White" : "Black"
-          }
-
-        drawText(
-          bolX - trailSize,
-          pathY +trailSize,
-            boles[j],
-            bolColor
-        );
-
-    
+        drawText(bolX - trailSize, pathY + trailSize, boles[j], bolColor);
       }
     }
   }
@@ -226,7 +211,6 @@ $(document).ready(function () {
       note.frequency.value = offBeatPitch;
       note.connect(audioContext.destination);
 
-      
       let t = audioContext.currentTime;
 
       if (found.first) note.frequency.value = accentPitch;
@@ -263,14 +247,14 @@ $(document).ready(function () {
     ctx.beginPath();
     ctx.rect(
       _cursor.x - trailSize,
-      _cursor.y -5+ trailSize * 2,
-      barHeight/2,
-        barHeight - trailSize
+      _cursor.y - 5 + trailSize * 2,
+      barHeight / 2,
+      barHeight - trailSize
     );
     ctx.fill();
-     ctx.stroke();
+    ctx.stroke();
 
-      /*
+    /*
       ctx.beginPath();
       ctx.rect(
           _cursor.x - trailSize,
@@ -281,22 +265,19 @@ $(document).ready(function () {
       ctx.fill();
       ctx.stroke();
       */
-      ctx.beginPath();
-      ctx.arc(_cursor.x , _cursor.y - (trailSize * 1), trailSize, 0, Math.PI, true);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(_cursor.x, _cursor.y - trailSize * 1, trailSize, 0, Math.PI, true);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
 
-
- /*
+    /*
     ctx.beginPath();
     ctx.moveTo(_cursor.x ,_cursor.y+trailSize);
     ctx.lineTo(_cursor.x + trailSize*2, _cursor.y+ trailSize*2);
     ctx.lineTo(_cursor.x + trailSize, _cursor.y +trailSize);     
     ctx.fill();
 */
-
-
   }
 
   // draw tracking dot at xy
@@ -309,13 +290,10 @@ $(document).ready(function () {
     return false;
   }
 
-  function drawLine(xPos, yPos, width, color) {
-    ctx.lineWidth = width;
-    ctx.lineTo(xPos, yPos);
-
-    ctx.strokeStyle = disabled(xPos, yPos) ? disabledColor : color;
-
-    ctx.stroke();
+  function drawMeasure(xPos, yPos) {
+    ctx.fillStyle = "silver";
+    ctx.fillRect(xPos, yPos - 1, measureWidth, 1);
+    ctx.fillRect(xPos, yPos + 1, measureWidth, 1);
   }
 
   function drawBar(xPos, yPos, height, lineSize, color, disabled) {
@@ -456,15 +434,15 @@ $(document).ready(function () {
       "#dd2c00",
       "green",
       "#007bff",
-      "#ffc107",
+      "#fa9207",
       "#dd2c00",
       "green",
       "#007bff",
-      "#ffc107",
+      "#fa9207",
       "#dd2c00",
       "green",
       "#007bff",
-      "#ffc107",
+      "#fa9207",
     ];
     trailColors = [
       "#F6B5A7",
