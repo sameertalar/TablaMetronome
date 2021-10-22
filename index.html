@@ -13,7 +13,7 @@
       name="keywords"
       content="Metronome,tap tempo,free,ad-free,open-source, Sameer Talar, Tabla, Metronome"
     />
-    <meta name="author" content="Saeer Talar" />
+    <meta name="author" content="Sameer Talar" />
 
     <!-- Bootstrap -->
     <link
@@ -22,66 +22,47 @@
       integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
       crossorigin="anonymous"
     />
+    <!-- https://getbootstrap.com/docs/3.4/components/ -->
 
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
 
   <body>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-6 text-center"></div>
-      </div>
+    
       <!-- Controls start  -->
-      <div class="row">
-        <div class="col-lg-6">
+      <div class="row well">
+        <div class="col-lg-3 text-center">
+          <button id="btnPlay" type="button" class="btn btn-success btn-lg active">
+            <i class="glyphicon glyphicon-play"></i> Play
+          </button>
+          <button
+            id="btnPause"
+            type="button"
+            class="btn btn-warning btn-lg"
+            style="display: none"
+          >
+            <i class="glyphicon glyphicon-pause"></i> Pause
+          </button>
+          <button
+            id="btnRestart"
+            type="button"
+            class="btn btn-primary btn-lg"
+            style="display: none"
+          >
+            <i class="glyphicon glyphicon-repeat"></i> Restart
+          </button>
+        </div>
+
+        <div class="col-lg-4">
           <div class="row">
-            <div class="col-sm-6 text-center">
-              <div class="text-center">
-                <button id="btnPlay" type="button" class="btn btn-primary">
-                  Play
-                </button>
-                <button
-                  id="btnPause"
-                  type="button"
-                  class="btn btn-warning"
-                  style="display: none"
-                >
-                  Pause
-                </button>
-                <button
-                  id="btnRestart"
-                  type="button"
-                  class="btn btn-secondary"
-                  style="display: none"
-                >
-                  Restart
-                </button>
-
-                <label class="form-check-label py-10" for="audioCheck"
-                  >Play Sound</label
-                >
-                <input
-                  type="checkbox"
-                  class="form-check-audio"
-                  id="audioCheck"
-                  
-                />
-
-                <label class="pl-5" for="beatsText">Beats</label>
-                <input
-                  id="beatsText"
-                  type="text"
-                  value="8"
-                  class="tinytext text-center"
-                />
-              </div>
-            </div>
-
-            <div class="col-sm-4 text-center">
+            <div class="col-md-4 text-right">
               <label for="rangeAlertAudioVolume">
                 Speed
                 <span id="rangeTempLabel" class="badge badge-light">60</span>
               </label>
+            </div>
+            <div class="col-md-8 text-left">
               <input
                 class="form-control-range"
                 id="rangeTempo"
@@ -93,9 +74,38 @@
               />
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-4 text-right">
+              <label class="pl-5" for="beatsText">Beats</label>
+
+              <select id="beatsText" name="beatsText" class="custom-select-lg">
+                <option selected>8</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="7">7</option>
+              </select>
+            </div>
+
+            <div class="col-md-8 text-center">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input form-check-audio"
+                  type="checkbox"
+                  id="audioCheck"
+                  checked
+                />
+                <label class="form-check-label" for="audioCheck"
+                  >Play Sound</label
+                >
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-6 mb-5">
-          <textarea id="notesText" class="form-control" rows="2" title="Notes">धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	तिं.ना|ता.ता	ती.र.कि.ट	ता.ता	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	धिं.ना</textarea
+
+        <div class="col-md-4 mb-5">
+          <textarea id="notesText" class="form-control" rows="2" title="Notes">
+धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	तिं.ना|ता.ता	ती.र.कि.ट	ता.ता	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	धिं.ना</textarea
           >
         </div>
       </div>
@@ -104,8 +114,8 @@
       <div class="row mt-10">
         <div
           id="canvasDiv"
-          class="col-lg overflow-auto"
-          style="overflow: auto; border: 1px solid pink; height: 80vh"
+          class="col-lg overflow-auto border"
+          style="overflow: auto;  height: 80vh"
         >
           <canvas id="canvas" width="1800" height="800"></canvas>
         </div>
@@ -117,7 +127,7 @@
         <div class="col-sm-4"></div>
       </div>
 
-      <div class="row">
+      <div class="row well">
         <div class="col-sm-4 pl-10">
           <div style="padding-left: 50px">
             <div>

@@ -1,9 +1,9 @@
 $(document).ready(function () {
-  var canvas, ctx, context,_animationFrameId;
+  var canvas, ctx, audioContext, _animationFrameId;
   var accentPitch, offBeatPitch;
   var noteSeparator, measureSeparator, restNoteText, dotColors, trailColors;
   var trailSize, barHeight, measureHeight, measureWidth, marginX, marginY;
-  var _isPlaying, _tempo, _beats,_seed;
+  var _isPlaying, _tempo, _beats, _seed;
   var _cursor, _trackPoints, _notes;
 
   // Load
@@ -13,6 +13,7 @@ $(document).ready(function () {
     _trackPoints = new Array();
     _isPlaying = true;
     _seed = (_tempo * 10) / measureWidth;
+    audioContext = new AudioContext();
 
     _beats = $("#beatsText").val();
     _notes = $("#notesText")
@@ -44,6 +45,14 @@ $(document).ready(function () {
       y: marginY,
     };
     play();
+  }
+
+  function animate() {
+    draw(_seed);
+
+    _animationFrameId = window.requestAnimationFrame(function () {
+      animate();
+    });
   }
 
   // draw the current frame based on sliderValue
@@ -172,13 +181,7 @@ $(document).ready(function () {
     }
   }
 
-  function animate() {
-    draw(_seed);
 
-    _animationFrameId = window.requestAnimationFrame(function () {
-      animate();
-    });
-  }
 
   function playNote() {
     let playAudio = $(".form-check-audio:checked").val();
@@ -197,12 +200,12 @@ $(document).ready(function () {
       // console.log("Found Object", found);
       // console.log("Note Played");
 
-      var note = context.createOscillator();
+      var note = audioContext.createOscillator();
       note.frequency.value = offBeatPitch;
-      note.connect(context.destination);
+      note.connect(audioContext.destination);
 
       const d = new Date();
-      let t = context.currentTime;
+      let t = audioContext.currentTime;
 
       if (found.first) note.frequency.value = accentPitch;
       else note.frequency.value = offBeatPitch;
@@ -298,7 +301,7 @@ $(document).ready(function () {
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    context = new AudioContext();
+ 
     _trackPoints = new Array();
 
     _tempo = 60;
