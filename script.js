@@ -23,9 +23,7 @@ $(document).ready(function () {
     _beats = $("#beatsText").val();
     _notes = $("#notesText")
       .val()
-      .replace(/\t/g, "|")
-      .replace(/(\r\n|\n|\r)/gm, "|")
-      .replace(" ", "|");
+      .replace(/\t/g, "|")      .replace(/(\r\n|\n|\r)/gm, "|")          .replace(" ", "|")   ;
 
     togglePlay();
     setSizes();
@@ -175,7 +173,7 @@ $(document).ready(function () {
             bolX,
             pathY,
             trailSize * 1.5,
-            trailColors[i % _beats],
+              "white",
             bolColor
           );
         } else {
@@ -188,19 +186,21 @@ $(document).ready(function () {
             disabled(bolX, pathY) ? disabledColor : dotColors[i % _beats],
             false
           );
-        }
+          }
+
+          if (disabled(bolX, pathY)) {
+
+              bolColor = j === 0 ? "White" : "Black"
+          }
 
         drawText(
           bolX - trailSize,
           pathY +trailSize,
-          boles[j],
-          disabled(bolX, pathY) ? "white" : bolColor
+            boles[j],
+            bolColor
         );
 
-        if (boles[j] === restNoteText) {
-          ctx.fillStyle = "white";
-          ctx.fillText("X", bolX - trailSize + 3, pathY + trailSize / 2);
-        }
+    
       }
     }
   }
@@ -226,7 +226,7 @@ $(document).ready(function () {
       note.frequency.value = offBeatPitch;
       note.connect(audioContext.destination);
 
-      const d = new Date();
+      
       let t = audioContext.currentTime;
 
       if (found.first) note.frequency.value = accentPitch;
@@ -265,10 +265,28 @@ $(document).ready(function () {
       _cursor.x - trailSize,
       _cursor.y -5+ trailSize * 2,
       barHeight/2,
-      barHeight
+        barHeight - trailSize
     );
     ctx.fill();
-    ctx.stroke();
+     ctx.stroke();
+
+      /*
+      ctx.beginPath();
+      ctx.rect(
+          _cursor.x - trailSize,
+          _cursor.y - (trailSize*2),
+          barHeight / 2,
+          trailSize
+      );
+      ctx.fill();
+      ctx.stroke();
+      */
+      ctx.beginPath();
+      ctx.arc(_cursor.x , _cursor.y - (trailSize * 1), trailSize, 0, Math.PI, true);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
 
  /*
     ctx.beginPath();
@@ -384,7 +402,7 @@ $(document).ready(function () {
   function setSizes() {
     let desktop = window.innerWidth > 900;
 
-    margin = 20;
+    margin = 22;
 
     measureWidth = Math.floor(window.innerWidth / (Number(_beats) + 1));
 
@@ -431,7 +449,7 @@ $(document).ready(function () {
 
     noteSeparator = ".";
     measureSeparator = "|";
-    restNoteText = "_";
+    restNoteText = "X";
 
     disabledColor = "Gray";
     dotColors = [
