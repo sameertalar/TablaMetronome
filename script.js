@@ -63,11 +63,13 @@ $(document).ready(function () {
 
   // draw the current frame based on sliderValue
   function draw(seed) {
+
+
+
     drawTrack();
 
-    // Draw the tracking rectangle -------------------
-
     drawMovingRect();
+   
 
     // Play Audio
     playNote();
@@ -130,50 +132,29 @@ $(document).ready(function () {
       drawDot(
         pathX - measureWidth,
         pathY,
-        trailSize * 1.25,
+        trailSize * 1.5,
         dotColors[i % _beats],
         dotColors[i % _beats]
       );
 
       // Ending Bar
       if (i % _beats === _beats - 1) {
-      
-        drawDot(
-          pathX,
-          pathY,
-          trailSize * 1.25,
-          'white',
-          disabledColor
+        drawDot(pathX, pathY, trailSize * 1.5, "white", disabledColor);
+
+        drawText(
+          pathX - trailSize / 2,
+          pathY + trailSize / 2,
+          (i + 1) / _beats,
+          "Black"
         );
 
-
-        drawText(pathX-(trailSize/2) ,pathY +(trailSize/2), (i + 1) / _beats,"Black");
-
-        
         $("#consoleMaxX").text(pathX + trailSize);
       }
 
-     
       var boles = notes[i].split(noteSeparator);
 
       for (var j = 0; j < boles.length; j++) {
         let bolX = pathX - measureWidth + j * (measureWidth / boles.length);
-
-      
-        // vertical bars     
-        drawBar(
-          bolX,
-          pathY + trailSize / 2,
-          barHeight - trailSize / 2,
-          1,
-          disabled(bolX, pathY) ? disabledColor : dotColors[i % _beats],
-          false
-        );
-
-        // Print Bol
-        drawText(bolX - trailSize / 2 , pathY + barHeight + trailSize * 2, boles[j],
-          disabled(bolX, pathY) ? disabledColor :dotColors[i % _beats]);
-  
 
         if (init) {
           _trackPoints.push({
@@ -185,15 +166,36 @@ $(document).ready(function () {
           });
         }
 
+        // Print Bol
+        let bolColor = "white";
+
         if (j !== 0) {
+          bolColor = dotColors[i % _beats];
           drawDot(
             bolX,
             pathY,
-            trailSize,
+            trailSize * 1.5,
             trailColors[i % _beats],
-            dotColors[i % _beats]
+            bolColor
+          );
+        } else {
+          // vertical bars
+          drawBar(
+            bolX,
+            pathY + trailSize / 2,
+            barHeight - trailSize / 2,
+            1,
+            disabled(bolX, pathY) ? disabledColor : dotColors[i % _beats],
+            false
           );
         }
+
+        drawText(
+          bolX - trailSize,
+          pathY +trailSize,
+          boles[j],
+          disabled(bolX, pathY) ? "white" : bolColor
+        );
 
         if (boles[j] === restNoteText) {
           ctx.fillStyle = "white";
@@ -261,12 +263,22 @@ $(document).ready(function () {
     ctx.beginPath();
     ctx.rect(
       _cursor.x - trailSize,
-      _cursor.y - trailSize * 1.5,
-      barHeight * 0.7,
-      barHeight + trailSize
+      _cursor.y -5+ trailSize * 2,
+      barHeight/2,
+      barHeight
     );
     ctx.fill();
     ctx.stroke();
+
+ /*
+    ctx.beginPath();
+    ctx.moveTo(_cursor.x ,_cursor.y+trailSize);
+    ctx.lineTo(_cursor.x + trailSize*2, _cursor.y+ trailSize*2);
+    ctx.lineTo(_cursor.x + trailSize, _cursor.y +trailSize);     
+    ctx.fill();
+*/
+
+
   }
 
   // draw tracking dot at xy
@@ -295,11 +307,7 @@ $(document).ready(function () {
 
   function drawText(xPos, yPos, text, color) {
     ctx.fillStyle = color;
-    ctx.fillText(
-      text,
-      xPos ,
-      yPos
-    );
+    ctx.fillText(text, xPos, yPos);
   }
 
   function drawDot(xPos, yPos, radius, fillColor, lineColor) {
