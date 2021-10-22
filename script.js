@@ -2,7 +2,7 @@ $(document).ready(function () {
   var canvas, ctx, audioContext, _animationFrameId;
   var accentPitch, offBeatPitch;
   var noteSeparator, measureSeparator, restNoteText, dotColors, trailColors;
-  var trailSize, barHeight, measureHeight, measureWidth, marginX, marginY;
+  var trailSize, barHeight, measureHeight, measureWidth, margin;
   var _isPlaying, _tempo, _beats, _seed;
   var _cursor, _trackPoints, _notes;
 
@@ -12,7 +12,7 @@ $(document).ready(function () {
   function play() {
     _trackPoints = new Array();
     _isPlaying = true;
-    _seed = (_tempo * 10) / measureWidth;
+
     audioContext = new AudioContext();
 
     _beats = $("#beatsText").val();
@@ -23,6 +23,7 @@ $(document).ready(function () {
       .replace(" ", "|");
 
     togglePlay();
+    setSizes();
     drawTrack(true);
     animate();
 
@@ -41,8 +42,8 @@ $(document).ready(function () {
     window.cancelAnimationFrame(_animationFrameId);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     _cursor = {
-      x: marginX,
-      y: marginY,
+      x: margin,
+      y: margin,
     };
     play();
   }
@@ -68,45 +69,50 @@ $(document).ready(function () {
 
     _cursor.x = _cursor.x + seed;
 
-    if (_cursor.x > marginX + _beats * measureWidth) {
-      _cursor.x = marginX;
+    if (_cursor.x > margin + _beats * measureWidth) {
+      _cursor.x = margin;
       _cursor.y = _cursor.y + measureHeight;
 
       if (
         _cursor.y >=
-        marginY +
+        margin +
           (_notes.split(measureSeparator).length / _beats) * measureHeight
       ) {
-        _cursor.y = marginY;
+        _cursor.y = margin;
         $("#canvasDiv").scrollTop(-100);
       }
     }
 
     if (_cursor.y > 600) {
-      $("#canvasDiv").scrollTop(_cursor.y - marginY - measureHeight * 3);
+      $("#canvasDiv").scrollTop(_cursor.y - margin - measureHeight * 3);
     }
+
+    $("#consoleCursor").text(
+      Math.floor(_cursor.x) + " :" + Math.floor(_cursor.y)
+    );
   }
 
   function drawTrack(init) {
     // redraw path
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "black";
-    ctx.font = "20px Arial";
+    ctx.font = 20 + "px Arial";
     ctx.lineWidth = trailSize;
 
     let notes = _notes.split(measureSeparator);
 
-    let pathX = marginX;
-    let pathY = marginY;
+    let pathX = margin;
+    let pathY = margin;
 
     for (var i = 0; i < notes.length; i++) {
       //console.log(notes[i]);
 
       if (i % _beats === 0) {
-        pathX = marginX;
+        pathX = margin;
 
         if (i !== 0) {
           pathY = pathY + measureHeight;
+          if (init) $("#consoleMaxY").text(pathY + barHeight + trailSize);
         }
       }
 
@@ -138,6 +144,7 @@ $(document).ready(function () {
           pathX + trailSize,
           pathY + trailSize * 2
         );
+        $("#consoleMaxX").text(pathX + trailSize);
       }
 
       // Boles
@@ -180,8 +187,6 @@ $(document).ready(function () {
       }
     }
   }
-
-
 
   function playNote() {
     let playAudio = $(".form-check-audio:checked").val();
@@ -233,13 +238,13 @@ $(document).ready(function () {
       */
   }
 
-  // draw tracking rect at xy
   function drawMovingRect() {
+    // draw tracking rect at xy
     ctx.fillStyle = "fuchsia";
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.rect(_cursor.x - 13, _cursor.y - 20, 25, 50);
+    ctx.rect(_cursor.x - trailSize, _cursor.y-(trailSize*1.5), barHeight*0.7, barHeight+trailSize);
     ctx.fill();
     ctx.stroke();
   }
@@ -271,10 +276,19 @@ $(document).ready(function () {
   $("#rangeTempo").on("change", function (event) {
     _tempo = this.value;
     $("#rangeTempLabel").text(this.value);
+
+    if (_isPlaying) {
+      restart();
+    }
   });
 
   function init() {
     // Load
+
+    if (window.innerWidth < 900) {
+      $("#beatsText").val(4);
+    }
+
     setConstants();
 
     $("#btnPlay").on("click", play);
@@ -284,6 +298,8 @@ $(document).ready(function () {
     ctx.canvas.height = 300;
     //$("#canvasDiv").height(window.innerHeight - 500);
     //$("#canvasDiv").width(window.innerWidth - 30);
+
+    $("#consoleSize").text(window.innerWidth + " x " + window.innerHeight);
   }
 
   function togglePlay() {
@@ -297,11 +313,47 @@ $(document).ready(function () {
     }
   }
 
+  function setSizes() {
+    let desktop = window.innerWidth > 900;
+
+    margin = 20;
+
+    measureWidth = Math.floor(window.innerWidth / (Number(_beats) + 1));
+
+
+    if (desktop) trailSize = margin / 2;
+    else trailSize = margin / 2;
+
+    barHeight = Math.floor(trailSize * 4);
+    measureHeight = margin + barHeight + margin+trailSize;
+
+    _cursor = {
+      x: margin,
+      y: margin,
+    };
+    _seed =  measureWidth/_tempo;
+
+    console.log(
+      "measureWidth",
+      measureWidth,
+      "measureHeight",
+      measureHeight,
+      "barHeight",
+      barHeight,
+      "trailSize",
+      trailSize,
+      "_seed",
+      _seed,
+      "desktop",
+      desktop
+    );
+  }
+
   function setConstants() {
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
- 
+
     _trackPoints = new Array();
 
     _tempo = 60;
@@ -309,23 +361,11 @@ $(document).ready(function () {
     _isPlaying = false;
     _notes = "";
 
-    marginX = 20;
-    marginY = 40;
-    measureHeight = 125;
-    measureWidth = 200;
-
-    trailSize = 10;
-    barHeight = 40;
     (accentPitch = 380), (offBeatPitch = 200);
 
     noteSeparator = ".";
     measureSeparator = "|";
     restNoteText = "_";
-
-    _cursor = {
-      x: marginX,
-      y: marginY,
-    };
 
     dotColors = [
       "#dd2c00",
@@ -336,8 +376,16 @@ $(document).ready(function () {
       "green",
       "#007bff",
       "#ffc107",
+      "#dd2c00",
+      "green",
+      "#007bff",
+      "#ffc107",
     ];
     trailColors = [
+      "#F6B5A7",
+      "#A7F6D2",
+      "#A7BEF6",
+      "#F6F4A7",
       "#F6B5A7",
       "#A7F6D2",
       "#A7BEF6",

@@ -32,7 +32,7 @@
     
       <!-- Controls start  -->
       <div class="row well">
-        <div class="col-lg-3 text-center">
+        <div class="col-lg-4 text-center">
           <button id="btnPlay" type="button" class="btn btn-success btn-lg active">
             <i class="glyphicon glyphicon-play"></i> Play
           </button>
@@ -52,6 +52,10 @@
           >
             <i class="glyphicon glyphicon-repeat"></i> Restart
           </button>
+          
+          <span id="consoleCursor">0 : 0</span>
+           
+          
         </div>
 
         <div class="col-lg-4">
@@ -84,11 +88,12 @@
                 <option value="4">4</option>
                 <option value="3">3</option>
                 <option value="7">7</option>
+                <option value="12">12</option>
               </select>
             </div>
 
-            <div class="col-md-8 text-center">
-              <div class="form-check form-switch">
+            <div class="col-md-8 text-left">
+              
                 <input
                   class="form-check-input form-check-audio"
                   type="checkbox"
@@ -98,12 +103,14 @@
                 <label class="form-check-label" for="audioCheck"
                   >Play Sound</label
                 >
-              </div>
+               
+              <small id="consoleSize">x</small>  -  <small id="consoleMaxX">x</small> :
+              <small id="consoleMaxY">x</small> 
             </div>
           </div>
         </div>
 
-        <div class="col-md-4 mb-5">
+        <div class="col-md-4 mb-4">
           <textarea id="notesText" class="form-control" rows="2" title="Notes">
 धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	तिं.ना|ता.ता	ती.र.कि.ट	ता.ता	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	धिं.ना</textarea
           >
@@ -130,10 +137,10 @@
       <div class="row well">
         <div class="col-sm-4 pl-10">
           <div style="padding-left: 50px">
-            <div>
-              <span class="badge text-center">Teen Taal</span>
+            <div class="alert alert-info" >
+              Teen Taal
             </div>
-            <br />
+          
             धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
             धा|तिं|तिं|ता|ता|धिं|धिं|धा<br />
             धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|_.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|_.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा._|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता._|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट<br />धा.धिं|धा._|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
