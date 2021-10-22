@@ -29,11 +29,14 @@
 
   <body>
     <div class="container-fluid">
-    
       <!-- Controls start  -->
       <div class="row well">
         <div class="col-lg-4 text-center">
-          <button id="btnPlay" type="button" class="btn btn-success btn-lg active">
+          <button
+            id="btnPlay"
+            type="button"
+            class="btn btn-success btn-lg active"
+          >
             <i class="glyphicon glyphicon-play"></i> Play
           </button>
           <button
@@ -52,10 +55,8 @@
           >
             <i class="glyphicon glyphicon-repeat"></i> Restart
           </button>
-          
+
           <span id="consoleCursor">0 : 0</span>
-           
-          
         </div>
 
         <div class="col-lg-4">
@@ -93,19 +94,19 @@
             </div>
 
             <div class="col-md-8 text-left">
-              
-                <input
-                  class="form-check-input form-check-audio"
-                  type="checkbox"
-                  id="audioCheck"
-                  checked
-                />
-                <label class="form-check-label" for="audioCheck"
-                  >Play Sound</label
-                >
-               
-              <small id="consoleSize">x</small>  -  <small id="consoleMaxX">x</small> :
-              <small id="consoleMaxY">x</small> 
+              <input
+                class="form-check-input form-check-audio"
+                type="checkbox"
+                id="audioCheck"
+                
+              />
+              <label class="form-check-label" for="audioCheck"
+                >Play Sound</label
+              >
+
+              <small id="consoleSize">x</small> -
+              <small id="consoleMaxX">x</small> :
+              <small id="consoleMaxY">x</small>
             </div>
           </div>
         </div>
@@ -122,7 +123,7 @@
         <div
           id="canvasDiv"
           class="col-lg overflow-auto border"
-          style="overflow: auto;  height: 80vh"
+          style="overflow: auto; height: 80vh"
         >
           <canvas id="canvas" width="1800" height="800"></canvas>
         </div>
@@ -136,14 +137,30 @@
 
       <div class="row well">
         <div class="col-sm-4 pl-10">
-          <div style="padding-left: 50px">
-            <div class="alert alert-info" >
-              Teen Taal
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a data-toggle="tab" href="#TeenTaal">Teen Taal</a>
+            </li>
+            <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+            <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div id="TeenTaal" class="tab-pane fade in active">
+              <div style="padding-left: 50px; " class="alert alert-warning">
+                धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
+                धा|तिं|तिं|ता|ता|धिं|धिं|धा<br />
+                धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|_.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|_.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा._|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता._|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट<br />धा.धिं|धा._|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
+              </div>
             </div>
-          
-            धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
-            धा|तिं|तिं|ता|ता|धिं|धिं|धा<br />
-            धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|_.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|_.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा._|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता._|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट<br />धा.धिं|धा._|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
+            <div id="menu1" class="tab-pane fade">
+              <h3>Menu 1</h3>
+              <p>Some content in menu 1.</p>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+              <h3>Menu 2</h3>
+              <p>Some content in menu 2.</p>
+            </div>
           </div>
         </div>
         <div class="col-sm-4"></div>

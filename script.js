@@ -1,7 +1,12 @@
 $(document).ready(function () {
   var canvas, ctx, audioContext, _animationFrameId;
   var accentPitch, offBeatPitch;
-  var noteSeparator, measureSeparator, restNoteText, dotColors, trailColors;
+  var noteSeparator,
+    measureSeparator,
+    restNoteText,
+    dotColors,
+    trailColors,
+    disabledColor;
   var trailSize, barHeight, measureHeight, measureWidth, margin;
   var _isPlaying, _tempo, _beats, _seed;
   var _cursor, _trackPoints, _notes;
@@ -97,7 +102,6 @@ $(document).ready(function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "black";
     ctx.font = 20 + "px Arial";
-    ctx.lineWidth = trailSize;
 
     let notes = _notes.split(measureSeparator);
 
@@ -119,49 +123,57 @@ $(document).ready(function () {
       ctx.beginPath();
       ctx.moveTo(pathX, pathY);
       pathX = pathX + measureWidth;
-      ctx.lineTo(pathX, pathY);
-      ctx.strokeStyle = trailColors[i % _beats];
-      ctx.stroke();
-      ctx.beginPath();
+      // vertical bars
 
-      ctx.arc(pathX - measureWidth, pathY, trailSize * 1.25, 0, Math.PI * 2);
-      ctx.fillStyle = dotColors[i % _beats];
-      ctx.fill();
+      drawLine(pathX, pathY, 5, trailColors[i % _beats]);
+
+      drawDot(
+        pathX - measureWidth,
+        pathY,
+        trailSize * 1.25,
+        dotColors[i % _beats],
+        dotColors[i % _beats]
+      );
 
       // Ending Bar
       if (i % _beats === _beats - 1) {
-        ctx.fillStyle = "gray";
-        ctx.fillRect(
+      
+        drawDot(
           pathX,
-          pathY - trailSize / 2,
-          1,
-          barHeight + trailSize / 2
+          pathY,
+          trailSize * 1.25,
+          'white',
+          disabledColor
         );
 
-        //ctx.fillStyle = "white";
-        ctx.fillText(
-          (i + 1) / _beats,
-          pathX + trailSize,
-          pathY + trailSize * 2
-        );
+
+        drawText(pathX-(trailSize/2) ,pathY +(trailSize/2), (i + 1) / _beats,"Black");
+
+        
         $("#consoleMaxX").text(pathX + trailSize);
       }
 
-      // Boles
+     
       var boles = notes[i].split(noteSeparator);
 
       for (var j = 0; j < boles.length; j++) {
         let bolX = pathX - measureWidth + j * (measureWidth / boles.length);
 
-        ctx.fillStyle = dotColors[i % _beats];
-        // vertical bars
-        ctx.fillRect(bolX, pathY + trailSize / 2, 1, barHeight - trailSize / 2);
-
-        ctx.fillText(
-          boles[j],
-          bolX - trailSize / 2,
-          pathY + barHeight + trailSize * 2
+      
+        // vertical bars     
+        drawBar(
+          bolX,
+          pathY + trailSize / 2,
+          barHeight - trailSize / 2,
+          1,
+          disabled(bolX, pathY) ? disabledColor : dotColors[i % _beats],
+          false
         );
+
+        // Print Bol
+        drawText(bolX - trailSize / 2 , pathY + barHeight + trailSize * 2, boles[j],
+          disabled(bolX, pathY) ? disabledColor :dotColors[i % _beats]);
+  
 
         if (init) {
           _trackPoints.push({
@@ -174,10 +186,13 @@ $(document).ready(function () {
         }
 
         if (j !== 0) {
-          ctx.beginPath();
-          ctx.arc(bolX, pathY, trailSize, 0, Math.PI * 2);
-          ctx.fillStyle = "gray";
-          ctx.fill();
+          drawDot(
+            bolX,
+            pathY,
+            trailSize,
+            trailColors[i % _beats],
+            dotColors[i % _beats]
+          );
         }
 
         if (boles[j] === restNoteText) {
@@ -244,19 +259,63 @@ $(document).ready(function () {
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.rect(_cursor.x - trailSize, _cursor.y-(trailSize*1.5), barHeight*0.7, barHeight+trailSize);
+    ctx.rect(
+      _cursor.x - trailSize,
+      _cursor.y - trailSize * 1.5,
+      barHeight * 0.7,
+      barHeight + trailSize
+    );
     ctx.fill();
     ctx.stroke();
   }
 
   // draw tracking dot at xy
-  function drawDot(point, color) {
+
+  function disabled(xPos, yPos) {
+    if ((_cursor.x > xPos && _cursor.y >= yPos) || yPos < _cursor.y) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function drawLine(xPos, yPos, width, color) {
+    ctx.lineWidth = width;
+    ctx.lineTo(xPos, yPos);
+
+    ctx.strokeStyle = disabled(xPos, yPos) ? disabledColor : color;
+
+    ctx.stroke();
+  }
+
+  function drawBar(xPos, yPos, height, lineSize, color, disabled) {
     ctx.fillStyle = color;
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 3;
+    ctx.fillRect(xPos, yPos, lineSize, height);
+  }
+
+  function drawText(xPos, yPos, text, color) {
+    ctx.fillStyle = color;
+    ctx.fillText(
+      text,
+      xPos ,
+      yPos
+    );
+  }
+
+  function drawDot(xPos, yPos, radius, fillColor, lineColor) {
     ctx.beginPath();
-    ctx.arc(point.x, point.y, 8, 0, Math.PI * 2, false);
-    ctx.closePath();
+    ctx.arc(xPos, yPos, radius, 0, Math.PI * 2);
+
+    ctx.lineWidth = 2;
+
+    if (disabled(xPos, yPos)) {
+      ctx.strokeStyle = disabledColor;
+      ctx.fillStyle = disabledColor;
+    } else {
+      ctx.strokeStyle = lineColor;
+      ctx.fillStyle = fillColor;
+    }
+
     ctx.fill();
     ctx.stroke();
   }
@@ -265,6 +324,7 @@ $(document).ready(function () {
   function getLineXYatPercent(startPt, endPt, percent) {
     var dx = endPt.x - startPt.x;
     var dy = endPt.y - startPt.y;
+
     var X = startPt.x + dx * percent;
     var Y = startPt.y + dy * percent;
     return {
@@ -320,18 +380,16 @@ $(document).ready(function () {
 
     measureWidth = Math.floor(window.innerWidth / (Number(_beats) + 1));
 
-
-    if (desktop) trailSize = margin / 2;
-    else trailSize = margin / 2;
+    trailSize = 10;
 
     barHeight = Math.floor(trailSize * 4);
-    measureHeight = margin + barHeight + margin+trailSize;
+    measureHeight = margin + barHeight + margin + trailSize;
 
     _cursor = {
       x: margin,
       y: margin,
     };
-    _seed =  measureWidth/_tempo;
+    _seed = measureWidth / _tempo;
 
     console.log(
       "measureWidth",
@@ -367,6 +425,7 @@ $(document).ready(function () {
     measureSeparator = "|";
     restNoteText = "_";
 
+    disabledColor = "Gray";
     dotColors = [
       "#dd2c00",
       "green",
