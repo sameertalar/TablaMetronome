@@ -55,8 +55,15 @@
           >
             <i class="glyphicon glyphicon-repeat"></i> Restart
           </button>
-
-          <span id="consoleCursor">0 : 0</span>
+          <button id="setSpeeedS" type="button" class="btn btn-default btn-sm">
+            S
+          </button>
+          <button id="setSpeeedM" type="button" class="btn btn-default btn-sm">
+            M
+          </button>
+          <button id="setSpeeedF" type="button" class="btn btn-default btn-sm">
+            F
+          </button>
         </div>
 
         <div class="col-lg-4">
@@ -103,10 +110,7 @@
               <label class="form-check-label" for="audioCheck"
                 >Play Sound</label
               >
-
-              <small id="consoleSize">x</small> -
-              <small id="consoleMaxX">x</small> :
-              <small id="consoleMaxY">x</small>
+              <span id="consoleCursor">0 : 0</span>
             </div>
           </div>
         </div>
@@ -137,6 +141,9 @@
 
       <div class="row well">
         <div class="col-sm-12 pl-10">
+          <small id="consoleSize">x</small> -
+          <small id="consoleMaxX">x</small> :
+          <small id="consoleMaxY">x</small>
           <ul class="nav nav-tabs">
             <li class="active">
               <a data-toggle="tab" href="#TeenTaal">Teen Taal</a>
@@ -147,19 +154,10 @@
 
           <div class="tab-content">
             <div id="TeenTaal" class="tab-pane fade in active">
-              <div style="padding-left: 50px" class="alert alert-warning">
-                <button id="setSpeeedS" type="button" class="btn btn-success">
-                  S
-                </button>
-                <button id="setSpeeedM" type="button" class="btn btn-primary">
-                  M
-                </button>
-                <button id="setSpeeedF" type="button" class="btn btn-warning">
-                  F
-                </button>
+              <div class="">
                 <button
                   type="button"
-                  class="btn btn-active"
+                  class="btn btn-default"
                   onclick="populateNote(this)"
                 >
                   धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
@@ -167,42 +165,42 @@
                 </button>
                 <button
                   type="button"
-                  class="btn btn-primary"
+                  class="btn btn-default"
                   onclick="populateNote(this)"
                 >
                   धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना
                 </button>
                 <button
                   type="button"
-                  class="btn btn-warning"
+                  class="btn btn-default"
                   onclick="populateNote(this)"
                 >
                   धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना
                 </button>
                 <button
                   type="button"
-                  class="btn btn-success"
+                  class="btn btn-default"
                   onclick="populateNote(this)"
                 >
                   धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना
                 </button>
                 <button
                   type="button"
-                  class="btn btn-info"
+                  class="btn btn-default"
                   onclick="populateNote(this)"
                 >
                   धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना
                 </button>
                 <button
                   type="button"
-                  class="btn btn-warning"
+                  class="btn btn-default"
                   onclick="populateNote(this)"
                 >
                   धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट
                 </button>
                 <button
                   type="button"
-                  class="btn btn-danger"
+                  class="btn btn-default"
                   onclick="populateNote(this)"
                 >
                   धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
