@@ -1,10 +1,19 @@
 body {
-  background-color: white;
+  background-color: #e9ecef;
+  
 }
 canvas {
   margin: auto;
   display: block;
+  background-color: #fff;
+  padding-top: 10px;;
+  border-radius: 10px;
 }
 .tinytext {
-  width: 25px;
+  width: 10px;
+}
+
+#notesText
+{
+  
 }

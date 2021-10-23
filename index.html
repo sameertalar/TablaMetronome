@@ -17,66 +17,48 @@
 
     <!-- Bootstrap -->
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <!-- https://getbootstrap.com/docs/3.4/components/ -->
-
+    <!-- https://getbootstrap.com/docs/5.1/getting-started/introduction/ -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
 
   <body>
     <div class="container-fluid">
       <!-- Controls start  -->
-      <div class="row well">
+
+      <div class="row mb-4">
         <div class="col-lg-4 text-center">
-          <button
-            id="btnPlay"
-            type="button"
-            class="btn btn-success btn-lg active"
+          <textarea
+            id="notesText"
+            class="form-control bg-light"
+            rows="2"
+            title="Notes"
           >
-            <i class="glyphicon glyphicon-play"></i> Play
-          </button>
-          <button
-            id="btnPause"
-            type="button"
-            class="btn btn-warning btn-lg"
-            style="display: none"
+धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	तिं.ना|ता.ता	ती.र.कि.ट	ता.ता	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	धिं.ना</textarea
           >
-            <i class="glyphicon glyphicon-pause"></i> Pause
-          </button>
-          <button
-            id="btnRestart"
-            type="button"
-            class="btn btn-primary btn-lg"
-            style="display: none"
-          >
-            <i class="glyphicon glyphicon-repeat"></i> Restart
-          </button>
-          <button id="setSpeeedS" type="button" class="btn btn-default btn-sm">
-            S
-          </button>
-          <button id="setSpeeedM" type="button" class="btn btn-default btn-sm">
-            M
-          </button>
-          <button id="setSpeeedF" type="button" class="btn btn-default btn-sm">
-            F
-          </button>
         </div>
 
-        <div class="col-lg-4">
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label for="rangeAlertAudioVolume">
-                Speed
-                <span id="rangeTempLabel" class="badge badge-light">60</span>
-              </label>
-            </div>
-            <div class="col-md-8 text-left">
+        <!-- Controls center start  -->
+        <div class="col-lg-4 text-center">
+          <div class="row mt-2">
+            <div class="col d-flex flex-row">
+              <span id="rangeTempLabel" class="badge bg-secondary">60</span>
+              <i
+                class="fa fa-minus bg-light border rounded p-1 ms-3"
+                onclick="minusSpeed()"
+                style="color: #495057"
+                aria-hidden="true"
+              ></i>
               <input
-                class="form-control-range"
+                class="form-range ms-2"
                 id="rangeTempo"
                 type="range"
                 min="20"
@@ -84,49 +66,103 @@
                 step="5"
                 value="60"
               />
+              <i
+                class="fa fa-plus bg-light border rounded p-1 ms-2"
+                style="color: #495057"
+                onclick="addSpeed()"
+                aria-hidden="true"
+              ></i>
             </div>
           </div>
+          <div class="row mt-2">
+            <div class="col d-flex flex-row">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input form-check-audio"
+                  type="checkbox"
+                  role="switch"
+                  id="audioCheck"
+                  checked
+                />
+                <label class="form-check-label" for="audioCheck">Audio</label>
+              </div>
 
-          <div class="row">
-            <div class="col-md-4 text-right">
-              <label class="pl-5" for="beatsText">Beats</label>
-
-              <select id="beatsText" name="beatsText" class="custom-select-lg">
+              <select
+                id="beatsText"
+                name="beatsText"
+                class="custom-select-lg ms-3"
+              >
                 <option selected>8</option>
                 <option value="4">4</option>
                 <option value="3">3</option>
                 <option value="7">7</option>
                 <option value="12">12</option>
               </select>
-            </div>
-
-            <div class="col-md-8 text-left">
-              <input
-                class="form-check-input form-check-audio"
-                type="checkbox"
-                id="audioCheck"
-                checked
-              />
-              <label class="form-check-label" for="audioCheck"
-                >Play Sound</label
-              >
-              <span id="consoleCursor">0 : 0</span>
+              <label class="pl-5 ms-2" for="beatsText">Beats</label>
+              <div class="ms-5   text-muted">
+                <small id="consoleSize" >x</small>
+                <small id="consoleMaxX" class="ms-3 text-muted">x</small> :
+                <small id="consoleMaxY" class="text-muted">x</small>
+                <small id="consoleCursor" class="ms-3 text-muted">0 : 0</small>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="col-md-4 mb-4">
-          <textarea id="notesText" class="form-control" rows="2" title="Notes">
-धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	तिं.ना|ता.ता	ती.र.कि.ट	ता.ता	ती.र.कि.ट	धा.धा	ती.र.कि.ट	धा.धा	धिं.ना</textarea
+        <!-- Controls center start  -->
+        <div class="col-lg-4 mt-2  text-center">
+          <button
+            id="btnPlay"
+            type="button"
+            class="btn btn-success btn-lg active"
           >
+            <i class="fa fa-play" aria-hidden="true"></i> Play
+          </button>
+          <button
+            id="btnPause"
+            type="button"
+            class="btn btn-warning btn-lg"
+            style="display: none"
+          >
+            <i class="fa fa-pause" aria-hidden="true"></i> Pause
+          </button>
+          <button
+            id="btnRestart"
+            type="button"
+            class="btn btn-primary btn-lg"
+            style="display: none"
+          >
+            <i class="fa fa-repeat" aria-hidden="true"></i> Restart
+          </button>
+          <button
+            onclick="SetSpeed(85)"
+            type="button"
+            class="btn btn-outline-secondary btn-sm ms-5"
+          >
+            S
+          </button>
+          <button
+            onclick="SetSpeed(60)"
+            type="button"
+            class="btn btn-outline-secondary btn-sm"
+          >
+            M
+          </button>
+          <button
+            onclick="SetSpeed(30)"
+            type="button"
+            class="btn btn-outline-secondary btn-sm"
+          >
+            F
+          </button>
         </div>
       </div>
 
       <!-- Controls end  -->
-      <div class="row mt-10">
+      <div class="row mt-4">
         <div
           id="canvasDiv"
-          class="col-lg overflow-auto border"
+          class="col-lg overflow-auto mt-4"
           style="overflow: auto; max-height: 80vh"
         >
           <canvas id="canvas" width="1800" height="800"></canvas>
@@ -139,82 +175,59 @@
         <div class="col-sm-4"></div>
       </div>
 
-      <div class="row well">
-        <div class="col-sm-12 pl-10">
-          <small id="consoleSize">x</small> -
-          <small id="consoleMaxX">x</small> :
-          <small id="consoleMaxY">x</small>
-          <ul class="nav nav-tabs">
-            <li class="active">
-              <a data-toggle="tab" href="#TeenTaal">Teen Taal</a>
-            </li>
-            <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-            <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-          </ul>
-
-          <div class="tab-content">
-            <div id="TeenTaal" class="tab-pane fade in active">
-              <div class="">
-                <button
-                  type="button"
-                  class="btn btn-default"
-                  onclick="populateNote(this)"
-                >
-                  धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
-                  धा|तिं|तिं|ता|ता|धिं|धिं|धा
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-default"
-                  onclick="populateNote(this)"
-                >
-                  धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-default"
-                  onclick="populateNote(this)"
-                >
-                  धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-default"
-                  onclick="populateNote(this)"
-                >
-                  धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-default"
-                  onclick="populateNote(this)"
-                >
-                  धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-default"
-                  onclick="populateNote(this)"
-                >
-                  धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-default"
-                  onclick="populateNote(this)"
-                >
-                  धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
-                </button>
-              </div>
-            </div>
-            <div id="menu1" class="tab-pane fade">
-              <h3>Menu 1</h3>
-              <p>Some content in menu 1.</p>
-            </div>
-            <div id="menu2" class="tab-pane fade">
-              <h3>Menu 2</h3>
-              <p>Some content in menu 2.</p>
-            </div>
+      <div class="row mt-5">
+        <div class="col-sm-12">
+          <div class="">
+            <button
+              type="button"
+              class="btn btn-default"
+              onclick="populateNote(this)"
+            >
+              धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
+              धा|तिं|तिं|ता|ता|धिं|धिं|धा
+            </button>
+            <button
+              type="button"
+              class="btn btn-default"
+              onclick="populateNote(this)"
+            >
+              धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना
+            </button>
+            <button
+              type="button"
+              class="btn btn-default"
+              onclick="populateNote(this)"
+            >
+              धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना
+            </button>
+            <button
+              type="button"
+              class="btn btn-default"
+              onclick="populateNote(this)"
+            >
+              धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना
+            </button>
+            <button
+              type="button"
+              class="btn btn-default"
+              onclick="populateNote(this)"
+            >
+              धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना
+            </button>
+            <button
+              type="button"
+              class="btn btn-default"
+              onclick="populateNote(this)"
+            >
+              धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट
+            </button>
+            <button
+              type="button"
+              class="btn btn-default"
+              onclick="populateNote(this)"
+            >
+              धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
+            </button>
           </div>
         </div>
       </div>
@@ -229,8 +242,8 @@
     ></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-      integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
     <script src="script.js"></script>
@@ -238,6 +251,26 @@
       function populateNote(value) {
         $("#notesText").val(value.innerText);
       }
+      function SetSpeed(value) {
+        $("#rangeTempo").val(value);
+        SetSpeedLable();
+      }
+
+      function minusSpeed() {
+        $("#rangeTempo").val(Number($("#rangeTempo").val()) - 5);
+        SetSpeedLable();
+      }
+
+      function addSpeed() {
+        $("#rangeTempo").val(Number($("#rangeTempo").val()) + 5);
+        SetSpeedLable();
+      }
+
+      function SetSpeedLable() {
+        $("#rangeTempLabel").text($("#rangeTempo").val());
+      }
+
+      minusSpeed;
 
       $(document).ready(function () {});
     </script>
