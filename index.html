@@ -123,7 +123,7 @@
         <div
           id="canvasDiv"
           class="col-lg overflow-auto border"
-          style="overflow: auto; height: 80vh"
+          style="overflow: auto; max-height: 80vh"
         >
           <canvas id="canvas" width="1800" height="800"></canvas>
         </div>
@@ -136,7 +136,7 @@
       </div>
 
       <div class="row well">
-        <div class="col-sm-4 pl-10">
+        <div class="col-sm-12 pl-10">
           <ul class="nav nav-tabs">
             <li class="active">
               <a data-toggle="tab" href="#TeenTaal">Teen Taal</a>
@@ -147,10 +147,66 @@
 
           <div class="tab-content">
             <div id="TeenTaal" class="tab-pane fade in active">
-              <div style="padding-left: 50px; " class="alert alert-warning">
-                धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
-                धा|तिं|तिं|ता|ता|धिं|धिं|धा<br />
-                धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट<br />धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
+              <div style="padding-left: 50px" class="alert alert-warning">
+                <button id="setSpeeedS" type="button" class="btn btn-success">
+                  S
+                </button>
+                <button id="setSpeeedM" type="button" class="btn btn-primary">
+                  M
+                </button>
+                <button id="setSpeeedF" type="button" class="btn btn-warning">
+                  F
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-active"
+                  onclick="populateNote(this)"
+                >
+                  धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
+                  धा|तिं|तिं|ता|ता|धिं|धिं|धा
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="populateNote(this)"
+                >
+                  धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  onclick="populateNote(this)"
+                >
+                  धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  onclick="populateNote(this)"
+                >
+                  धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-info"
+                  onclick="populateNote(this)"
+                >
+                  धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  onclick="populateNote(this)"
+                >
+                  धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  onclick="populateNote(this)"
+                >
+                  धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
+                </button>
               </div>
             </div>
             <div id="menu1" class="tab-pane fade">
@@ -163,8 +219,6 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4"></div>
       </div>
     </div>
     <!-- Empty  -->
@@ -183,6 +237,10 @@
     ></script>
     <script src="script.js"></script>
     <script>
+      function populateNote(value) {
+        $("#notesText").val(value.innerText);
+      }
+
       $(document).ready(function () {});
     </script>
   </body>

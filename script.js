@@ -337,6 +337,12 @@ $(document).ready(function () {
     };
   }
 
+  function SetSpeed(value) {
+    $("#rangeTempo").val(value);
+    $("#rangeTempLabel").text(value);
+    _tempo = value;
+  }
+
   $("#rangeTempo").on("change", function (event) {
     _tempo = this.value;
     $("#rangeTempLabel").text(this.value);
@@ -354,6 +360,16 @@ $(document).ready(function () {
     }
 
     setConstants();
+
+    $("#setSpeeedF").on("click", function (vallue) {
+      SetSpeed(30);
+    });
+    $("#setSpeeedM").on("click", function (vallue) {
+      SetSpeed(60);
+    });
+    $("#setSpeeedS").on("click", function (vallue) {
+      SetSpeed(85);
+    });
 
     $("#btnPlay").on("click", play);
     $("#btnPause").on("click", pause);
