@@ -13,13 +13,15 @@ $(document).ready(function () {
 
   // Load
   init();
+  viewNotes();
 
-  function play() {
-    _trackPoints = new Array();
-    _isPlaying = true;
+  function viewNotes() {
+    readInputs();
+    drawTrack(true);
+    draw(0);
+  }
 
-    audioContext = new AudioContext();
-
+  function readInputs() {
     _beats = $("#beatsText").val();
     _tempo = $("#rangeTempo").val();
     _notes = $("#notesText")
@@ -28,12 +30,20 @@ $(document).ready(function () {
       .replace(/(\r\n|\n|\r)/gm, "|")
       .replace(" ", "|");
 
-    togglePlay();
     setSizes();
+  }
+
+  function play() {
+    _trackPoints = new Array();
+    audioContext = new AudioContext();
+    _isPlaying = true;
+
+    readInputs();
+
+    togglePlay();
+
     drawTrack(true);
     animate();
-
-    ctx.canvas.height = _trackPoints[_trackPoints.length - 1].y + 100;
 
     console.log(_trackPoints);
   }
@@ -190,6 +200,8 @@ $(document).ready(function () {
         drawText(bolX - trailSize, pathY + trailSize, boles[j], bolColor);
       }
     }
+
+    if (init) ctx.canvas.height = _trackPoints[_trackPoints.length - 1].y + 100;
   }
 
   function playNote() {
@@ -205,7 +217,7 @@ $(document).ready(function () {
         t.bole != restNoteText
     );
 
-    if (found) {
+    if (found && audioContext) {
       // console.log("Found Object", found);
       // console.log("Note Played");
 
@@ -256,7 +268,6 @@ $(document).ready(function () {
     ctx.fill();
     ctx.stroke();
 
-  
     /*
       ctx.beginPath();
       ctx.rect(
@@ -269,15 +280,20 @@ $(document).ready(function () {
       ctx.stroke();
       */
 
-
     ctx.beginPath();
     ctx.arc(_cursor.x, _cursor.y - trailSize * 1, trailSize, 0, Math.PI, true);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
 
-    drawBar(_cursor.x-3,_cursor.y - 5 + trailSize * 2,trailSize*1.5,6, "black");
-   // drawBar(_cursor.x+(barHeight/3),_cursor.y- trailSize,trailSize*2.5,2, "black");
+    drawBar(
+      _cursor.x - 3,
+      _cursor.y - 5 + trailSize * 2,
+      trailSize * 1.5,
+      6,
+      "black"
+    );
+    // drawBar(_cursor.x+(barHeight/3),_cursor.y- trailSize,trailSize*2.5,2, "black");
 
     /*
     ctx.beginPath();
@@ -366,6 +382,9 @@ $(document).ready(function () {
     $("#btnPlay").on("click", play);
     $("#btnPause").on("click", pause);
     $("#btnRestart").on("click", restart);
+
+    $("#notesText").on("focusout", viewNotes);
+
     ctx.canvas.width = window.innerWidth - 50;
     ctx.canvas.height = 300;
     //$("#canvasDiv").height(window.innerHeight - 500);
