@@ -99,8 +99,8 @@
                 <option value="12">12</option>
               </select>
               <label class="pl-5 ms-2" for="beatsText">Beats</label>
-              <div class="ms-5   text-muted">
-                <small id="consoleSize" >x</small>
+              <div class="ms-5 text-muted">
+                <small id="consoleSize">x</small>
                 <small id="consoleMaxX" class="ms-3 text-muted">x</small> :
                 <small id="consoleMaxY" class="text-muted">x</small>
                 <small id="consoleCursor" class="ms-3 text-muted">0 : 0</small>
@@ -110,7 +110,7 @@
         </div>
 
         <!-- Controls center start  -->
-        <div class="col-lg-4 mt-2  text-center">
+        <div class="col-lg-4 mt-2 text-center">
           <button
             id="btnPlay"
             type="button"
@@ -175,60 +175,66 @@
         <div class="col-sm-4"></div>
       </div>
 
-      <div class="row mt-5">
-        <div class="col-sm-12">
-          <div class="">
-            <button
-              type="button"
-              class="btn btn-default"
-              onclick="populateNote(this)"
-            >
-              धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
-              धा|तिं|तिं|ता|ता|धिं|धिं|धा
-            </button>
-            <button
-              type="button"
-              class="btn btn-default"
-              onclick="populateNote(this)"
-            >
-              धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना
-            </button>
-            <button
-              type="button"
-              class="btn btn-default"
-              onclick="populateNote(this)"
-            >
-              धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना
-            </button>
-            <button
-              type="button"
-              class="btn btn-default"
-              onclick="populateNote(this)"
-            >
-              धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना
-            </button>
-            <button
-              type="button"
-              class="btn btn-default"
-              onclick="populateNote(this)"
-            >
-              धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना
-            </button>
-            <button
-              type="button"
-              class="btn btn-default"
-              onclick="populateNote(this)"
-            >
-              धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट
-            </button>
-            <button
-              type="button"
-              class="btn btn-default"
-              onclick="populateNote(this)"
-            >
-              धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
-            </button>
-          </div>
+      <div class="row mt-3">
+        <div class="col-md-8">
+          <button
+            type="button"
+            class="btn btn-sm text-muted"
+            onclick="populateNote(this)"
+          >
+            धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
+            धा|तिं|तिं|ता|ता|धिं|धिं|धा
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm text-muted"
+            onclick="populateNote(this)"
+          >
+            धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm text-muted"
+            onclick="populateNote(this)"
+          >
+            धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm text-muted"
+            onclick="populateNote(this)"
+          >
+            धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm text-muted"
+            onclick="populateNote(this)"
+          >
+            धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm text-muted"
+            onclick="populateNote(this)"
+          >
+            धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm text-muted"
+            onclick="populateNote(this)"
+          >धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button
+            type="button"
+            class="btn btn-sm text-muted small "
+            onclick="populateNote(this)"
+          >
+            धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />धा|तिं|तिं|ता|ता|धिं|धिं|धा<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट<br />धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
+          </button>
         </div>
       </div>
     </div>

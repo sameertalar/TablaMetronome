@@ -51,6 +51,7 @@ $(document).ready(function () {
       x: margin,
       y: margin,
     };
+    $("#canvasDiv").scrollTop(-100);
     play();
   }
 
@@ -66,7 +67,7 @@ $(document).ready(function () {
   function draw(seed) {
     drawTrack();
 
-    drawMovingRect();
+    drawMovingCursor();
 
     // Play Audio
     playNote();
@@ -87,8 +88,8 @@ $(document).ready(function () {
       }
     }
 
-    if (_cursor.y > 600) {
-      $("#canvasDiv").scrollTop(_cursor.y - margin - measureHeight * 3);
+    if (_cursor.y > 400) {
+      $("#canvasDiv").scrollTop(_cursor.y - margin - measureHeight * 4);
     }
 
     $("#consoleCursor").text(
@@ -240,7 +241,7 @@ $(document).ready(function () {
       */
   }
 
-  function drawMovingRect() {
+  function drawMovingCursor() {
     // draw tracking rect at xy
     ctx.fillStyle = "fuchsia";
     ctx.strokeStyle = "black";
@@ -255,6 +256,7 @@ $(document).ready(function () {
     ctx.fill();
     ctx.stroke();
 
+  
     /*
       ctx.beginPath();
       ctx.rect(
@@ -266,11 +268,16 @@ $(document).ready(function () {
       ctx.fill();
       ctx.stroke();
       */
+
+
     ctx.beginPath();
     ctx.arc(_cursor.x, _cursor.y - trailSize * 1, trailSize, 0, Math.PI, true);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
+
+    drawBar(_cursor.x-3,_cursor.y - 5 + trailSize * 2,trailSize*1.5,6, "black");
+   // drawBar(_cursor.x+(barHeight/3),_cursor.y- trailSize,trailSize*2.5,2, "black");
 
     /*
     ctx.beginPath();
