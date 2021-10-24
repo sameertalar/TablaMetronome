@@ -44,6 +44,7 @@ $(document).ready(function () {
 
     drawTrack(true);
     animate();
+    $("#videoDummy")[0].play();
 
     console.log(_trackPoints);
   }
