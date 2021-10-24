@@ -71,8 +71,14 @@ $(document).ready(function () {
     draw(_seed);
 
     _animationFrameId = window.requestAnimationFrame(function () {
-      animate();
+      if (_isPlaying) animate();
     });
+  }
+
+  function cancelAnimate() {
+    _isPlaying = false;
+    cancelAnimationFrame(_animationFrameId);
+    return;
   }
 
   // draw the current frame based on sliderValue
@@ -99,13 +105,17 @@ $(document).ready(function () {
         $("#canvasDiv").scrollTop(-100);
         _cycle++;
         console.log("Cycle:", _cycle);
+        /*
+        console.log("_animationFrameId", _animationFrameId);
 
-        if (_cycle === 2) {
-          window.cancelAnimationFrame(_animationFrameId);
-          _seed = 0;
-          audioContext = new AudioContext();
-          console.log("Pause Called");
+        if (_cycle === 1) {
+      
         }
+
+        _isPlaying = false;
+        changeTempo(null, 5);
+        restart();
+*/
       }
     }
 
