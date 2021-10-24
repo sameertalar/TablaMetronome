@@ -53,7 +53,7 @@
               <span id="rangeTempLabel" class="badge bg-secondary">60</span>
               <i
                 class="fa fa-minus bg-light border rounded p-1 ms-3"
-                onclick="minusSpeed()"
+                id="btnMinusTempo"
                 style="color: #495057"
                 aria-hidden="true"
               ></i>
@@ -69,7 +69,7 @@
               <i
                 class="fa fa-plus bg-light border rounded p-1 ms-2"
                 style="color: #495057"
-                onclick="addSpeed()"
+                id="btnAddTempo"
                 aria-hidden="true"
               ></i>
             </div>
@@ -144,21 +144,21 @@
             <source src="video_dummy.mp4" type="video/mp4" />
           </video>
           <button
-            onclick="SetSpeed(60)"
+            id="btnSetTempoS"
             type="button"
             class="btn btn-outline-secondary btn-sm ms-5"
           >
             S
           </button>
           <button
-            onclick="SetSpeed(90)"
+            id="btnSetTempoM"
             type="button"
             class="btn btn-outline-secondary btn-sm"
           >
             M
           </button>
           <button
-            onclick="SetSpeed(120)"
+            id="btnSetTempoF"
             type="button"
             class="btn btn-outline-secondary btn-sm"
           >
@@ -185,55 +185,30 @@
       </div>
 
       <div class="row mt-lg-3">
-        <div class="col-md-8">
-          <button
-            type="button"
-            class="btn btn-sm text-muted"
-            onclick="populateNote(this)"
-          >
+        <div class="col-md-4">
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
             धा|तिं|तिं|ता|ता|धिं|धिं|धा
           </button>
-          <button
-            type="button"
-            class="btn btn-sm text-muted"
-            onclick="populateNote(this)"
-          >
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना
           </button>
-          <button
-            type="button"
-            class="btn btn-sm text-muted"
-            onclick="populateNote(this)"
-          >
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना
           </button>
-          <button
-            type="button"
-            class="btn btn-sm text-muted"
-            onclick="populateNote(this)"
-          >
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना
           </button>
-          <button
-            type="button"
-            class="btn btn-sm text-muted"
-            onclick="populateNote(this)"
-          >
+        </div>
+
+        <div class="col-md-4">
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना
           </button>
-          <button
-            type="button"
-            class="btn btn-sm text-muted"
-            onclick="populateNote(this)"
-          >
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट
           </button>
-          <button
-            type="button"
-            class="btn btn-sm text-muted"
-            onclick="populateNote(this)"
-          >
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|ध्धि.क.डा.न<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
           </button>
         </div>
@@ -267,26 +242,6 @@
       function populateNote(value) {
         $("#notesText").val(value.innerText);
       }
-      function SetSpeed(value) {
-        $("#rangeTempo").val(value);
-        SetSpeedLable();
-      }
-
-      function minusSpeed() {
-        $("#rangeTempo").val(Number($("#rangeTempo").val()) - 5);
-        SetSpeedLable();
-      }
-
-      function addSpeed() {
-        $("#rangeTempo").val(Number($("#rangeTempo").val()) + 5);
-        SetSpeedLable();
-      }
-
-      function SetSpeedLable() {
-        $("#rangeTempLabel").text($("#rangeTempo").val());
-      }
-
-      minusSpeed;
 
       $(document).ready(function () {});
     </script>

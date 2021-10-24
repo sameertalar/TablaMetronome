@@ -9,7 +9,7 @@ $(document).ready(function () {
     disabledColor;
   var trailSize, barHeight, measureHeight, measureWidth, margin;
   var _isPlaying, _tempo, _beats, _seed;
-  var _cursor, _trackPoints, _notes, _mobile;
+  var _cursor, _trackPoints, _notes, _mobile, _cycle;
 
   // Load
   init();
@@ -37,6 +37,7 @@ $(document).ready(function () {
     _trackPoints = new Array();
     audioContext = new AudioContext();
     _isPlaying = true;
+    _cycle = 0;
 
     readInputs();
 
@@ -96,6 +97,15 @@ $(document).ready(function () {
       ) {
         _cursor.y = margin;
         $("#canvasDiv").scrollTop(-100);
+        _cycle++;
+        console.log("Cycle:", _cycle);
+
+        if (_cycle === 2) {
+          window.cancelAnimationFrame(_animationFrameId);
+          _seed = 0;
+          audioContext = new AudioContext();
+          console.log("Pause Called");
+        }
       }
     }
 
@@ -363,13 +373,46 @@ $(document).ready(function () {
   }
 
   $("#rangeTempo").on("change", function (event) {
-    _tempo = this.value;
-    $("#rangeTempLabel").text(this.value);
+    changeTempo(this.value);
+  });
+
+  $("#btnAddTempo").on("click", function (event) {
+    changeTempo(null, 5);
+  });
+
+  $("#btnMinusTempo").on("click", function (event) {
+    changeTempo(null, -5);
+  });
+
+  $("#btnMinusTempo").on("click", function (event) {
+    changeTempo(null, -5);
+  });
+
+  $("#btnSetTempoS").on("click", function (event) {
+    changeTempo(60);
+  });
+
+  $("#btnSetTempoM").on("click", function (event) {
+    changeTempo(90);
+  });
+  $("#btnSetTempoF").on("click", function (event) {
+    changeTempo(120);
+  });
+
+  function changeTempo(value, changeValue) {
+    if (changeValue) {
+      $("#rangeTempo").val(Number($("#rangeTempo").val()) + changeValue);
+    } else {
+      $("#rangeTempo").val(value);
+    }
+
+    $("#rangeTempLabel").text($("#rangeTempo").val());
+    _tempo = $("#rangeTempo").val();
 
     if (_isPlaying) {
       restart();
     }
-  });
+  }
 
   function init() {
     // Load
