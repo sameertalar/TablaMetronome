@@ -9,7 +9,7 @@ $(document).ready(function () {
     disabledColor;
   var trailSize, barHeight, measureHeight, measureWidth, margin;
   var _isPlaying, _tempo, _beats, _seed;
-  var _cursor, _trackPoints, _notes;
+  var _cursor, _trackPoints, _notes, _mobile;
 
   // Load
   init();
@@ -373,10 +373,6 @@ $(document).ready(function () {
   function init() {
     // Load
 
-    if (window.innerWidth < 900) {
-      $("#beatsText").val(4);
-    }
-
     setConstants();
 
     $("#btnPlay").on("click", play);
@@ -405,6 +401,19 @@ $(document).ready(function () {
   }
 
   function setSizes() {
+    let mobileRatio = 1;
+
+    if (window.innerWidth < 900) {
+      $("#beatsText").val(4);
+    }
+    if (window.innerWidth < 500 || window.innerHeight < 500) {
+      _mobile = true;
+    } else {
+      _mobile = false;
+    }
+
+    if (_notes.split("|").length > 16 || _mobile) mobileRatio = 0.7;
+
     let desktop = window.innerWidth > 900;
 
     margin = 22;
@@ -414,7 +423,7 @@ $(document).ready(function () {
     trailSize = 10;
 
     barHeight = Math.floor(trailSize * 4);
-    measureHeight = margin + barHeight + margin + trailSize;
+    measureHeight = (margin + barHeight + margin + trailSize) * mobileRatio;
 
     _cursor = {
       x: margin,
@@ -433,8 +442,10 @@ $(document).ready(function () {
       trailSize,
       "_seed",
       _seed,
-      "desktop",
-      desktop
+      "_mobile",
+      _mobile,
+      "_notes ",
+      _notes.split("|").length
     );
   }
 
