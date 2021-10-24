@@ -404,11 +404,9 @@ $(document).ready(function () {
   function setSizes() {
     let mobileRatio = 1;
 
-    if (window.innerWidth < 900) {
-      $("#beatsText").val(4);
-    }
     if (window.innerWidth < 500 || window.innerHeight < 500) {
       _mobile = true;
+      $("#beatsText").val(4);
     } else {
       _mobile = false;
     }
@@ -430,7 +428,7 @@ $(document).ready(function () {
       x: margin,
       y: margin,
     };
-    _seed = measureWidth / _tempo;
+    _seed = (measureWidth / 60) * (_tempo / 60);
 
     console.log(
       "measureWidth",
