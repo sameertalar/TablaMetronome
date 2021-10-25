@@ -34,29 +34,28 @@ $(document).ready(function () {
   }
 
   function play() {
-    _trackPoints = new Array();
-    audioContext = new AudioContext();
-    _isPlaying = true;
-    _cycle = 0;
+    if (!_isPlaying) {
+      _trackPoints = new Array();
+      audioContext = new AudioContext();
+      _isPlaying = true;
+      readInputs();
+      togglePlay();
+      setTrackingPints();
+      console.log("Cycle: started at ", new Date().toLocaleString());
+      _cycleTime = new Date().getTime();
+      $("#videoDummy")[0].play();
+      console.log(_trackPoints);
+    } else {
+      _seed = (measureWidth / 60) * (_tempo / 60);
+      console.log("tEMPO:", _tempo, "sEED", _seed);
+    }
 
-    readInputs();
-
-    togglePlay();
-
-    setTrackingPints();
-
-    console.log("Cycle: started at ", new Date().toLocaleString());
-    _cycleTime = new Date().getTime();
-
-    animate();
-
-    $("#videoDummy")[0].play();
-
-    console.log(_trackPoints);
+    _animationFrameId = window.requestAnimationFrame(animate);
   }
 
   function pause() {
     _isPlaying = false;
+    _cycle = 0;
     togglePlay();
     window.cancelAnimationFrame(_animationFrameId);
   }
@@ -119,16 +118,8 @@ $(document).ready(function () {
         );
         _cycleTime = new Date().getTime();
 
-        /*
-        console.log("_animationFrameId", _animationFrameId);
-
-        if (_cycle === 1) {
-      
-        }
-
-        _isPlaying = false;
-        changeTempo(null, 5);
-        restart();
+        /* AUTO TEMP0
+  changeTempo(null, 5);       
 */
       }
     }
@@ -540,7 +531,8 @@ $(document).ready(function () {
     _tempo = $("#rangeTempo").val();
 
     if (_isPlaying) {
-      restart();
+      cancelAnimationFrame(_animationFrameId);
+      play();
     }
   }
 
@@ -551,7 +543,6 @@ $(document).ready(function () {
 
     $("#btnPlay").on("click", play);
     $("#btnPause").on("click", pause);
-    $("#btnRestart").on("click", restart);
 
     $("#notesText").on("focusout", viewNotes);
 
@@ -567,7 +558,6 @@ $(document).ready(function () {
     if (_isPlaying) {
       $("#btnPlay").hide();
       $("#btnPause").show();
-      $("#btnRestart").show();
     } else {
       $("#btnPlay").show();
       $("#btnPause").hide();
@@ -604,7 +594,11 @@ $(document).ready(function () {
     _seed = (measureWidth / 60) * (_tempo / 60);
 
     console.log(
-      "measureWidth",
+      "setSizes() - _tempo",
+      _tempo,
+      "_seed",
+      _seed,
+      "  measureWidth",
       measureWidth,
       "measureHeight",
       measureHeight,
@@ -612,8 +606,6 @@ $(document).ready(function () {
       barHeight,
       "trailSize",
       trailSize,
-      "_seed",
-      _seed,
       "_mobile",
       _mobile,
       "_notes ",
@@ -627,6 +619,7 @@ $(document).ready(function () {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
     _trackPoints = new Array();
+    _cycle = 0;
 
     _tempo = 60;
     _beats = 4;
