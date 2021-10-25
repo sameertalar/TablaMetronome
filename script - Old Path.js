@@ -9,7 +9,7 @@ $(document).ready(function () {
     disabledColor;
   var trailSize, barHeight, measureHeight, measureWidth, margin;
   var _isPlaying, _tempo, _beats, _seed;
-  var _cursor, _trackPoints, _notes, _mobile, _cycle, _cycleTime;
+  var _cursor, _trackPoints, _notes, _mobile, _cycle;
 
   // Load
   init();
@@ -17,7 +17,7 @@ $(document).ready(function () {
 
   function viewNotes() {
     readInputs();
-    setTrackingPints();
+    drawTrack(true);
     draw(0);
   }
 
@@ -33,6 +33,24 @@ $(document).ready(function () {
     setSizes();
   }
 
+  function play1() {
+    _trackPoints = new Array();
+    audioContext = new AudioContext();
+    _isPlaying = true;
+    _cycle = 0;
+
+    readInputs();
+
+    togglePlay();
+
+    drawTrack(true);
+    //setTrackingPints();
+    animate();
+    $("#videoDummy")[0].play();
+
+    console.log(_trackPoints);
+  }
+
   function play() {
     _trackPoints = new Array();
     audioContext = new AudioContext();
@@ -44,13 +62,7 @@ $(document).ready(function () {
     togglePlay();
 
     setTrackingPints();
-
-    console.log("Cycle: started at ", new Date().toLocaleString());
-    _cycleTime = new Date().getTime();
-
     animate();
-
-    $("#videoDummy")[0].play();
 
     console.log(_trackPoints);
   }
@@ -109,16 +121,7 @@ $(document).ready(function () {
         _cursor.y = margin;
         $("#canvasDiv").scrollTop(-100);
         _cycle++;
-
-        console.log(
-          "Cycle:",
-          _cycle,
-          " took ",
-          (((new Date().getTime() - _cycleTime) / 1000) % 60).toFixed(2),
-          " seconds"
-        );
-        _cycleTime = new Date().getTime();
-
+        console.log("Cycle:", _cycle);
         /*
         console.log("_animationFrameId", _animationFrameId);
 
@@ -252,7 +255,6 @@ $(document).ready(function () {
     }
   }
 
-  // Obsolute
   function drawTrack(init) {
     // redraw path
     ctx.clearRect(0, 0, canvas.width, canvas.height);
