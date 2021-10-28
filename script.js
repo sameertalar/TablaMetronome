@@ -131,9 +131,10 @@ $(document).ready(function () {
     if (_cursor.y > 400) {
       // $("#canvasDiv").scrollTop(_cursor.y - margin - measureHeight * 4);
       // $(window).scrollTop(800);
+      $("#canvasDiv")[0].scrollIntoView({ behavior: "smooth", block: "end" });
+    } else {
+      $("#canvasDiv")[0].scrollIntoView({ behavior: "smooth", block: "start" });
     }
-
-    $("#mover")[0].scrollIntoView({ behavior: "smooth", block: "center" });
 
     $("#consoleCursor").text(
       Math.floor(_cursor.x) + " :" + Math.floor(_cursor.y)
