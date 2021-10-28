@@ -112,7 +112,7 @@ $(document).ready(function () {
       if (_cursor.y === _trackPoints[_trackPoints.length - 1].y) {
         _cursor.y = margin;
         // $("#canvasDiv").scrollTop(-100);
-        $(window).scrollTop();
+        //$(window).scrollTop();
 
         _cycle++;
         console.log(
@@ -128,6 +128,7 @@ $(document).ready(function () {
       }
     }
 
+    /*
     if (_cursor.y > 400) {
       // $("#canvasDiv").scrollTop(_cursor.y - margin - measureHeight * 4);
       // $(window).scrollTop(800);
@@ -135,6 +136,7 @@ $(document).ready(function () {
     } else {
       $("#canvasDiv")[0].scrollIntoView({ behavior: "smooth", block: "start" });
     }
+    */
 
     $("#consoleCursor").text(
       Math.floor(_cursor.x) + " :" + Math.floor(_cursor.y)
