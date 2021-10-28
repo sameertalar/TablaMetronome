@@ -18,12 +18,15 @@ $(document).ready(function () {
   function viewNotes() {
     readInputs();
     setTrackingPints();
-    draw(0);
+    //draw(0);
+    drawCanvas();
   }
 
   function readInputs() {
+    _trackPoints = new Array();
     _beats = $("#beatsText").val();
     _tempo = $("#rangeTempo").val();
+    _notes.length = 0;
     _notes = $("#notesText")
       .val()
       .replace(/\t/g, "|")
@@ -34,22 +37,26 @@ $(document).ready(function () {
   }
 
   function play() {
-    if (!_isPlaying) {
-      _trackPoints = new Array();
-      audioContext = new AudioContext();
-      _isPlaying = true;
-      readInputs();
-      togglePlay();
-      setTrackingPints();
-      console.log("Cycle: started at ", new Date().toLocaleString());
-      _cycleTime = new Date().getTime();
-      $("#videoDummy")[0].play();
-      console.log(_trackPoints);
+    //if (!_isPlaying) {
+    _trackPoints = new Array();
+    audioContext = new AudioContext();
+    _isPlaying = true;
+    readInputs();
+    togglePlay();
+    setTrackingPints();
+    console.log("Cycle: started at ", new Date().toLocaleString());
+    _cycleTime = new Date().getTime();
+    $("#videoDummy")[0].play();
+    console.log(_trackPoints);
+    /*
     } else {
       _seed = (measureWidth / 60) * (_tempo / 60);
       console.log("tEMPO:", _tempo, "sEED", _seed);
     }
+    */
 
+    //draw(0);
+    drawCanvas();
     _animationFrameId = window.requestAnimationFrame(animate);
   }
 
@@ -57,6 +64,7 @@ $(document).ready(function () {
     _isPlaying = false;
     _cycle = 0;
     togglePlay();
+    _trackPoints = new Array();
     window.cancelAnimationFrame(_animationFrameId);
   }
 
@@ -87,28 +95,26 @@ $(document).ready(function () {
 
   // draw the current frame based on sliderValue
   function draw(seed) {
-    drawCanvas();
+    //  if (seed === 0) drawCanvas();
 
-    drawMovingCursor();
+    //  drawMovingCursor();
+    $("#mover").css("marginLeft", _cursor.x);
+    $("#mover").css("marginTop", _cursor.y - 10);
 
     // Play Audio
     playNote();
 
     _cursor.x = _cursor.x + seed;
 
-    if (_cursor.x > margin + _beats * measureWidth) {
+    if (_cursor.x >= _trackPoints[_trackPoints.length - 1].x) {
       _cursor.x = margin;
-      _cursor.y = _cursor.y + measureHeight;
 
-      if (
-        _cursor.y >=
-        margin +
-          (_notes.split(measureSeparator).length / _beats) * measureHeight
-      ) {
+      if (_cursor.y === _trackPoints[_trackPoints.length - 1].y) {
         _cursor.y = margin;
-        $("#canvasDiv").scrollTop(-100);
-        _cycle++;
+        // $("#canvasDiv").scrollTop(-100);
+        $(window).scrollTop();
 
+        _cycle++;
         console.log(
           "Cycle:",
           _cycle,
@@ -117,16 +123,17 @@ $(document).ready(function () {
           " seconds"
         );
         _cycleTime = new Date().getTime();
-
-        /* AUTO TEMP0
-  changeTempo(null, 5);       
-*/
+      } else {
+        _cursor.y = _cursor.y + measureHeight;
       }
     }
 
     if (_cursor.y > 400) {
-      $("#canvasDiv").scrollTop(_cursor.y - margin - measureHeight * 4);
+      // $("#canvasDiv").scrollTop(_cursor.y - margin - measureHeight * 4);
+      // $(window).scrollTop(800);
     }
+
+    $("#mover")[0].scrollIntoView({ behavior: "smooth", block: "center" });
 
     $("#consoleCursor").text(
       Math.floor(_cursor.x) + " :" + Math.floor(_cursor.y)
@@ -134,6 +141,8 @@ $(document).ready(function () {
   }
 
   function setTrackingPints() {
+    _trackPoints = new Array();
+    _trackPoints.length = 0;
     let notes = _notes.split(measureSeparator);
 
     let pathX = margin;
@@ -152,22 +161,6 @@ $(document).ready(function () {
       pathX = pathX + measureWidth;
       // vertical bars
 
-      // Ending Bar
-      if (i % _beats === _beats - 1) {
-        _trackPoints.push({
-          bole: (i + 1) / _beats,
-          x: pathX,
-          y: pathY,
-          color: "Black",
-          bgColor: "white",
-          skip: false,
-          first: null,
-          end: true,
-        });
-
-        $("#consoleMaxX").text(pathX + trailSize);
-      }
-
       var boles = notes[i].split(noteSeparator);
 
       for (var j = 0; j < boles.length; j++) {
@@ -182,6 +175,22 @@ $(document).ready(function () {
           skip: false,
           first: j === 0,
         });
+      }
+
+      // Ending Bar
+      if (i % _beats === _beats - 1) {
+        _trackPoints.push({
+          bole: (i + 1) / _beats,
+          x: pathX,
+          y: pathY,
+          color: "Black",
+          bgColor: "white",
+          skip: false,
+          first: null,
+          end: true,
+        });
+
+        $("#consoleMaxX").text(pathX + trailSize);
       }
     }
 
@@ -553,7 +562,6 @@ $(document).ready(function () {
 
     $("#consoleSize").text(window.innerWidth + " x " + window.innerHeight);
   }
-
   function togglePlay() {
     if (_isPlaying) {
       $("#btnPlay").hide();

@@ -4,7 +4,7 @@
     <!-- Forked from http://jsfiddle.net/m1erickson/LumMX/ -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>🎵 Sameer's Metronome Local</title>
+    <title>🥁 Sameer's Metronome Local</title>
     <meta
       name="description"
       content="Easy to use online metronome. Free, ad-free and open source. Set or tap tempo."
@@ -63,7 +63,7 @@
                 id="rangeTempo"
                 type="range"
                 min="30"
-                max="180"
+                max="300"
                 step="5"
                 value="60"
               />
@@ -183,8 +183,9 @@
         <div
           id="canvasDiv"
           class="col-lg overflow-auto mt-lg-4 sc4"
-          style="overflow: auto; max-height: 80vh"
+          style="overflow: auto"
         >
+          <div id="mover" class="mover"></div>
           <canvas id="canvas" width="1800" height="800"></canvas>
         </div>
       </div>
