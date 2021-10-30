@@ -11,6 +11,8 @@ $(document).ready(function () {
   var _isPlaying, _tempo, _beats, _seed;
   var _cursor, _trackPoints, _notes, _mobile, _cycle, _cycleTime;
 
+  var _activeMatra, _activeBole, _funRiyaz, _notesEntity;
+
   // Load
   init();
 
@@ -36,28 +38,27 @@ $(document).ready(function () {
       .replace(" ", "|");
 
     let _notes1 = $("#notesText").val();
-    var _notesEntity = new Array();
+    _notesEntity = new Array();
 
     document.getElementById("playground").innerHTML = "";
 
     if (_notes1) {
       let lines = _notes1.split("\n");
+      let matraIndex = 0;
 
       // ----------- ROWS ------------");
       for (let l = 0; l < lines.length; l++) {
-        let rowEntity = { id: l + 1, matras: [] };
-        var rowElement = getDivRow("row_" + rowEntity.id);
+        var rowElement = getDivRow("row_" + l + 1);
 
         let matras = lines[l].split("|");
 
         // ----------- MATRAS ------------");
         for (let m = 0; m < matras.length; m++) {
-          let matraEntity = { id: m + 1, boles: [] };
-          var matraElementI = getDivMatra(matraEntity.id, false);
-          var matraElementO = getDivMatra(
-            "matra_" + rowEntity.id + "_" + matraEntity.id,
-            true
-          );
+          matraIndex++;
+
+          let matraEntity = { id: matraIndex, boles: [] };
+          var matraElementI = getDivMatra(m + 1, false); // id for alternate matra colors
+          var matraElementO = getDivMatra("matra_" + matraIndex, true);
 
           let bols = matras[m].split(".");
 
@@ -69,12 +70,7 @@ $(document).ready(function () {
             };
 
             var boleElement = getDivBole(
-              "bol_" +
-                rowEntity.id +
-                "_" +
-                matraEntity.id +
-                "_" +
-                boleEntity.id,
+              "bol_" + matraIndex + "_" + boleEntity.id,
               12 / bols.length,
               boleEntity.bole
             );
@@ -88,11 +84,10 @@ $(document).ready(function () {
 
           matraElementO.appendChild(matraElementI);
           rowElement.appendChild(matraElementO);
-          rowEntity.matras.push(matraEntity);
+          _notesEntity.push(matraEntity);
         }
 
         document.getElementById("playground").appendChild(rowElement);
-        _notesEntity.push(rowEntity);
       }
     }
 
@@ -112,13 +107,14 @@ $(document).ready(function () {
 
     if (outer) {
       if (id) div.id = id;
-      div.className = "col-sm-1 bg-light py-1 border rounded";
+      div.className = "col-sm-1 py-1 border rounded  tablaMatra ";
     } else {
-      let cssClass = "bg-warning border-warning";
+      let cssClass = "bg-warning border-warning ";
 
       if (id % 2 != 0) cssClass = "bg-info border-info";
 
-      div.className = "row border rounded text-center py-1 " + cssClass;
+      div.className =
+        "row border rounded rounded-circle text-center py-1 " + cssClass;
     }
 
     return div;
@@ -129,7 +125,8 @@ $(document).ready(function () {
     if (id) div.id = id;
 
     div.className =
-      "text-center bg-white border-success border p-1 rounded col-sm-" + col;
+      "tablaBole  text-center  bg-white text-black border-dark border p-1 rounded col-sm-" +
+      col;
 
     div.innerText = txt;
     return div;
@@ -153,81 +150,74 @@ $(document).ready(function () {
       console.log("tEMPO:", _tempo, "sEED", _seed);
     }
     */
-
+    _funRiyaz = setInterval(playMatra, 1000);
     // _animationFrameId = window.requestAnimationFrame(animate);
+
+    // setTimeout(function(){ console.log("Hello"); }, 1000);
   }
 
   function pause() {
-    _isPlaying = false;
-    _cycle = 0;
+    _activeMatra = 0;
+
     togglePlay();
-    _trackPoints = new Array();
-    window.cancelAnimationFrame(_animationFrameId);
+
+    clearInterval(_funRiyaz);
   }
 
-  function restart() {
-    window.cancelAnimationFrame(_animationFrameId);
+  function playMatra() {
+    _activeMatra++;
+    _activeBole = 0;
 
-    _cursor = {
-      x: margin,
-      y: margin,
-    };
-
-    play();
-  }
-
-  function animate() {
-    draw(_seed);
-
-    _animationFrameId = window.requestAnimationFrame(function () {
-      if (_isPlaying) animate();
-    });
-  }
-
-  // draw the current frame based on sliderValue
-  function draw(seed) {
-    //  drawMovingCursor();
-    $("#mover").css("marginLeft", _cursor.x);
-    $("#mover").css("marginTop", _cursor.y - 10);
-
-    // Play Audio
-    playNote();
-
-    _cursor.x = _cursor.x + seed;
-
-    if (_cursor.x >= _trackPoints[_trackPoints.length - 1].x) {
-      _cursor.x = margin;
-
-      if (_cursor.y === _trackPoints[_trackPoints.length - 1].y) {
-        _cursor.y = margin;
-
-        _cycle++;
-        console.log(
-          "Cycle:",
-          _cycle,
-          " took ",
-          (((new Date().getTime() - _cycleTime) / 1000) % 60).toFixed(2),
-          " seconds"
-        );
-        _cycleTime = new Date().getTime();
-      } else {
-        _cursor.y = _cursor.y + measureHeight;
-      }
+    if (_activeMatra > _notesEntity.length) {
+      _activeMatra = 1;
     }
+
+    $("#consoleCursor").text(_activeMatra);
+
+    console.log(
+      "Matra: ",
+      _activeMatra,
+      " played at ",
+      _activeMatra,
+      new Date().toLocaleString()
+    );
+
+    $(".tablaMatra").removeClass("bg-success");
+    $("#matra_" + _activeMatra).addClass("bg-success");
+    $(".tablaBole").removeClass("bg-danger text-white");
+    $(".tablaBole").addClass("bg-white text-black");
+
+    let nowMatra = _notesEntity.find((n) => n.id === _activeMatra);
+
+    let seed = 1000 / nowMatra.boles.length;
+
+    setTimeout(playBol, 0);
+    for (let p = 0; p < nowMatra.boles.length-1; p++) {
+      setTimeout(playBol, seed* (p+1));
+      console.log(p+1, "-",seed* (p+1));
+    }    
+  }
+
+  function playBol() {
+    _activeBole++;
+
+    $("#consoleMaxX").text(_activeBole);
+    $("#bol_" + _activeMatra + "_" + _activeBole).removeClass(
+      "bg-white text-black"
+    );
+    $("#bol_" + _activeMatra + "_" + _activeBole).addClass(
+      "bg-danger text-white"
+    );
 
     /*
-    if (_cursor.y > 400) {
-      // $("#canvasDiv").scrollTop(_cursor.y - margin - measureHeight * 4);
-      // $(window).scrollTop(800);
-      $("#canvasDiv")[0].scrollIntoView({ behavior: "smooth", block: "end" });
-    } else {
-      $("#canvasDiv")[0].scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-    */
-
-    $("#consoleCursor").text(
-      Math.floor(_cursor.x) + " :" + Math.floor(_cursor.y)
+    console.log(
+      "Bol: ",
+      _activeBole,
+      " at ",
+      _activeMatra,
+      new Date().getTime()
     );
+    */
   }
 
   function playNote() {
@@ -290,8 +280,7 @@ $(document).ready(function () {
     _tempo = $("#rangeTempo").val();
 
     if (_isPlaying) {
-      cancelAnimationFrame(_animationFrameId);
-      play();
+      //play();
     }
   }
 
@@ -341,6 +330,7 @@ $(document).ready(function () {
 
   function reset() {
     _cycle = 0;
+    _activeMatra = 0;
 
     _tempo = 60;
     _beats = 4;
