@@ -91,7 +91,7 @@ $(document).ready(function () {
       }
     }
 
-    console.log("_notesEntity----------", _notesEntity);
+    console.log("_notesEntity ----------", _notesEntity);
   }
 
   function getDivRow(id) {
@@ -170,10 +170,20 @@ $(document).ready(function () {
 
     if (_activeMatra > _notesEntity.length) {
       _activeMatra = 1;
+      _cycle++;
+      console.log(
+        "Cycle:",
+        _cycle,
+        " took ",
+        (((new Date().getTime() - _cycleTime) / 1000) % 60).toFixed(2),
+        " seconds"
+      );
+      _cycleTime = new Date().getTime();
     }
 
     $("#consoleCursor").text(_activeMatra);
 
+    /*
     console.log(
       "Matra: ",
       _activeMatra,
@@ -181,6 +191,7 @@ $(document).ready(function () {
       _activeMatra,
       new Date().toLocaleString()
     );
+    */
 
     $(".tablaMatra").removeClass("bg-success");
     $("#matra_" + _activeMatra).addClass("bg-success");
@@ -194,8 +205,11 @@ $(document).ready(function () {
     setTimeout(playBol, 0);
     for (let p = 0; p < nowMatra.boles.length-1; p++) {
       setTimeout(playBol, seed* (p+1));
-      console.log(p+1, "-",seed* (p+1));
-    }    
+     // console.log(p+1, "-",seed* (p+1));
+    } 
+    
+    document.getElementById('matra_'+_activeMatra).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+
   }
 
   function playBol() {
@@ -208,7 +222,7 @@ $(document).ready(function () {
     $("#bol_" + _activeMatra + "_" + _activeBole).addClass(
       "bg-danger text-white"
     );
-
+    playNote();
     /*
     console.log(
       "Bol: ",
@@ -222,52 +236,29 @@ $(document).ready(function () {
 
   function playNote() {
     let playAudio = $(".form-check-audio:checked").val();
-
     if (!playAudio) return;
 
-    let found = _trackPoints.find(
-      (t) =>
-        t.y === _cursor.y &&
-        t.x - _seed <= _cursor.x &&
-        t.x + _seed >= _cursor.x &&
-        t.bole != restNoteText
-    );
+    let nowMatra = _notesEntity.find((n) => n.id === _activeMatra);
+    let nowbole = nowMatra.boles.find((n) => n.id === _activeBole);
+    
+    if(nowbole.bole == "X") return;
 
-    if (found && audioContext) {
-      // console.log("Found Object", found);
-      // console.log("Note Played");
+    var note = audioContext.createOscillator();
+    //note.frequency.value = _activeBole ===1 ? accentPitch:offBeatPitch;
+    note.frequency.value =  accentPitch;
+    note.connect(audioContext.destination);
 
-      var note = audioContext.createOscillator();
-      note.frequency.value = offBeatPitch;
-      note.connect(audioContext.destination);
+    let t = audioContext.currentTime;
 
-      let t = audioContext.currentTime;
+     
+ 
+    note.start(t);
+    note.stop(t + 0.03);
 
-      if (found.first) note.frequency.value = accentPitch;
-      else note.frequency.value = offBeatPitch;
-
-      note.start(t);
-      note.stop(t + 0.03);
-    }
-
-    /* 
-        if(_move.x)
-  
-  
-   
-  */
-    /*
-  
-      if( $(".counter .dot").eq(noteCount).hasClass("active") )
-        note.frequency.value = accentPitch;
-      else
-        note.frequency.value = offBeatPitch;
-    */
-    /*
-      
-      
-      */
   }
+
+
+
 
   function changeTempo(value, changeValue) {
     if (changeValue) {
