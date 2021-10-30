@@ -27,36 +27,33 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link rel="stylesheet"  href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet"  href="https://fonts.googleapis.com/css?family=Teko">
     <link rel="stylesheet" type="text/css" href="style.css" />
-    
   </head>
 
-  <body class="bg-dark">
-    <div
-      id="playground"
-      class="container-fluid bg-white mt-1 pt-2 pb-3"
-       
-    ></div>
-
-   
-
-    <div class="container bg-secondary border rounded mt-4 pt-2 pb-1"  >
-      
-
+  <body>
+    <div class="container-fluid">
       <!-- Controls start  -->
 
-      <div class="row ">
-
+      <div class="row mb-lg-4">
+        <div class="col-lg-4 text-center">
+          <textarea
+            id="notesText"
+            class="form-control bg-light"
+            rows="2"
+            title="Notes"
+          >
+धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना
+धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना</textarea
+          >
+        </div>
 
         <!-- Controls center start  -->
         <div class="col-lg-4 text-center">
           <div class="row mt-lg-2">
             <div class="col d-flex flex-row">
-              <span id="rangeTempLabel" class="text-white  px-1">60</span>
+              <span id="rangeTempLabel" class="badge bg-secondary">60</span>
               <i
-                class="fa fa-minus bg-light border rounded p-1 ms-1"
+                class="fa fa-minus bg-light border rounded p-1 ms-3"
                 id="btnMinusTempo"
                 style="color: #495057"
                 aria-hidden="true"
@@ -95,12 +92,26 @@
                   type="checkbox"
                   role="switch"
                   id="autoAddTempo"
+                  checked
                 />
                 <label class="form-check-label" for="audioCheck"
                   >Auto Tempo</label
                 >
               </div>
-              
+              <select
+                id="beatsText"
+                name="beatsText"
+                class="custom-select-lg ms-3"
+              >
+                <option selected value="8">8</option>
+                <option>4</option>
+                <option>3</option>
+                <option>6</option>
+                <option>7</option>
+                <option>11</option>
+                <option>12</option>
+              </select>
+              <label class="pl-5 ms-2" for="beatsText">Beats</label>
               <div class="ms-5 text-muted">
                 <small id="consoleSize">x</small>
                 <small id="consoleMaxX" class="ms-3 text-muted">x</small> :
@@ -111,37 +122,58 @@
           </div>
         </div>
 
-        <!-- Controls center end  -->
-        <div class="col-lg-4 text-center">
-          <textarea
-            id="notesText"
-            class="form-control bg-light"
-            rows="2"
-            title="Notes"
-          >
-धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना
-धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना</textarea
-          >
-        </div>
+        <!-- Controls center start  -->
         <div class="col-lg-4 mt-lg-2 text-center">
+          <button
+            id="btnPlay"
+            type="button"
+            class="btn btn-success btn-lg active"
+          >
+            <i class="fa fa-play" aria-hidden="true"></i> Play
+          </button>
+          <button
+            id="btnPause"
+            type="button"
+            class="btn btn-danger btn-lg"
+            style="display: none"
+          >
+            <i class="fa fa-pause" aria-hidden="true"></i> Stop
+          </button>
+          <button
+            id="btnRestart"
+            type="button"
+            class="btn btn-primary btn-lg ms-1"
+            style="display: none"
+          >
+            <i class="fa fa-repeat" aria-hidden="true"></i> Restart
+          </button>
+          <video
+            id="videoDummy"
+            controls
+            loop
+            muted
+            style="width: 12px; height: 8px"
+          >
+            <source src="video_dummy.mp4" type="video/mp4" />
+          </video>
           <button
             id="btnSetTempoS"
             type="button"
-            class="btn  btn-outline-light btn-sm ms-5"
+            class="btn btn-outline-secondary btn-sm ms-5"
           >
             S
           </button>
           <button
             id="btnSetTempoM"
             type="button"
-            class="btn btn-outline-light btn-sm"
+            class="btn btn-outline-secondary btn-sm"
           >
             M
           </button>
           <button
             id="btnSetTempoF"
             type="button"
-            class="btn btn-outline-light btn-sm"
+            class="btn btn-outline-secondary btn-sm"
           >
             F
           </button>
@@ -149,7 +181,16 @@
       </div>
 
       <!-- Controls end  -->
-
+      <div class="row mt-lg-4">
+        <div
+          id="canvasDiv"
+          class="col-lg overflow-auto mt-lg-4 sc4"
+          style="overflow: auto"
+        >
+          <div id="mover" class="mover"></div>
+          <canvas id="canvas" width="1800" height="800"></canvas>
+        </div>
+      </div>
       <!-- Empty  -->
       <div class="row">
         <div class="col-sm-4"></div>
@@ -157,39 +198,34 @@
         <div class="col-sm-4"></div>
       </div>
 
-   
-    </div>
-
-    <div id="quickNotes" class="container-fluid bg-dark mt-5">
-
-      <div class="row mt-lg-3 ">
+      <div class="row mt-lg-3">
         <div class="col-md-4">
-          <button type="button" class="btn text-muted" onclick="populateNote(this)">
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा|धिं|धिं|धा|धा|धिं|धिं|धा<br />
             धा|तिं|तिं|ता|ता|धिं|धिं|धा
           </button>
-          <button type="button" class="btn text-muted" onclick="populateNote(this)">
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना
           </button>
-          <button type="button" class="btn text-muted" onclick="populateNote(this)">
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना
           </button>
-          <button type="button" class="btn text-muted" onclick="populateNote(this)">
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना
           </button>
         </div>
 
         <div class="col-md-4">
-          <button type="button" class="btn text-muted" onclick="populateNote(this)">
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना
           </button>
-          <button type="button" class="btn text-muted" onclick="populateNote(this)">
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट
           </button>
-          <button type="button" class="btn text-muted" onclick="populateNote(this)">
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.धिं|धा.X|ती.र.कि.ट|धा.त्ति|धा.ती.र|कि.ट.धा|तिं.ना|धि.ड.न.ग<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ति.धा|ती.र.कि.ट
           </button>
-          <button type="button" class="btn text-muted" onclick="populateNote(this)">
+          <button type="button" class="btn" onclick="populateNote(this)">
             धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.X|ती.र.कि.ट|धा.X
           </button>
         </div>
@@ -203,47 +239,8 @@
           </button>
         </div>
       </div>
-</div>
-
-    <!-- Empty  -->
-
-    <!-- Folating Butoons-->
-    <div class="fixed-top">
-      <div style="float: right">
-        <video
-          id="videoDummy"
-          controls
-          loop
-          muted
-          style="width: 12px; height: 8px"
-        >
-          <source src="video_dummy.mp4" type="video/mp4" />
-        </video>
-        <button
-          id="btnPlay"
-          type="button"
-          class="btn btn-success btn-lg active"
-        >
-          <i class="fa fa-play" aria-hidden="true"></i> Play
-        </button>
-        <button
-          id="btnPause"
-          type="button"
-          class="btn btn-danger btn-lg"
-          style="display: none"
-        >
-          <i class="fa fa-pause" aria-hidden="true"></i> Stop
-        </button>
-        <button
-          id="btnRestart"
-          type="button"
-          class="btn btn-primary btn-lg ms-1"
-          style="display: none"
-        >
-          <i class="fa fa-repeat" aria-hidden="true"></i> Restart
-        </button>
-      </div>
     </div>
+    <!-- Empty  -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script
