@@ -1,16 +1,7 @@
 $(document).ready(function () {
-  var audioContext, _animationFrameId;
-  var accentPitch, offBeatPitch;
-  var noteSeparator,
-    measureSeparator,
-    restNoteText,
-    dotColors,
-    trailColors,
-    disabledColor;
-  var trailSize, barHeight, measureHeight, measureWidth, margin;
-  var _isPlaying, _tempo, _beats, _seed;
-  var _cursor, _trackPoints, _notes, _mobile, _cycle, _cycleTime;
-
+  var audioContext; 
+  var _isPlaying, _Seed;
+  var _notes, _cycle, _cycleTime;
   var _activeMatra, _activeBole, _funRiyaz, _notesEntity;
 
   // Load
@@ -28,10 +19,7 @@ $(document).ready(function () {
   function drawNotes() {
     reset();
 
-    _beats = $("#beatsText").val();
-    _tempo = $("#rangeTempo").val();
-
-    _notes = $("#notesText")
+      _notes = $("#notesText")
       .val()
       .replace(/\t/g, "|")
       .replace(/(\r\n|\n|\r)/gm, "|")
@@ -144,16 +132,7 @@ $(document).ready(function () {
     _cycleTime = new Date().getTime();
     $("#videoDummy")[0].play();
 
-    /*
-    } else {
-      _seed = (measureWidth / 60) * (_tempo / 60);
-      console.log("tEMPO:", _tempo, "sEED", _seed);
-    }
-    */
-    _funRiyaz = setInterval(playMatra, 1000);
-    // _animationFrameId = window.requestAnimationFrame(animate);
-
-    // setTimeout(function(){ console.log("Hello"); }, 1000);
+    _funRiyaz = setInterval(playMatra, _Seed);
   }
 
   function pause() {
@@ -181,18 +160,6 @@ $(document).ready(function () {
       _cycleTime = new Date().getTime();
     }
 
-    $("#consoleCursor").text(_activeMatra);
-
-    /*
-    console.log(
-      "Matra: ",
-      _activeMatra,
-      " played at ",
-      _activeMatra,
-      new Date().toLocaleString()
-    );
-    */
-
     $(".tablaMatra").removeClass("bg-success");
     $("#matra_" + _activeMatra).addClass("bg-success");
     $(".tablaBole").removeClass("bg-danger text-white");
@@ -200,64 +167,77 @@ $(document).ready(function () {
 
     let nowMatra = _notesEntity.find((n) => n.id === _activeMatra);
 
-    let seed = 1000 / nowMatra.boles.length;
+    let bolTime = _Seed / nowMatra.boles.length;
 
     setTimeout(playBol, 0);
-    for (let p = 0; p < nowMatra.boles.length-1; p++) {
-      setTimeout(playBol, seed* (p+1));
-     // console.log(p+1, "-",seed* (p+1));
-    } 
-    
-    document.getElementById('matra_'+_activeMatra).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+    for (let p = 0; p < nowMatra.boles.length - 1; p++) {
+      setTimeout(playBol, bolTime * (p + 1));
+      // console.log(p+1, "-",seed* (p+1));
+    }
+
+    document.getElementById('matra_' + _activeMatra).scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
 
   }
 
   function playBol() {
     _activeBole++;
 
-    $("#consoleMaxX").text(_activeBole);
+    //$("#consoleMaxX").text(_activeBole);
     $("#bol_" + _activeMatra + "_" + _activeBole).removeClass(
       "bg-white text-black"
     );
     $("#bol_" + _activeMatra + "_" + _activeBole).addClass(
       "bg-danger text-white"
     );
+
     playNote();
-    /*
-    console.log(
-      "Bol: ",
-      _activeBole,
-      " at ",
-      _activeMatra,
-      new Date().getTime()
-    );
-    */
+
+
   }
 
   function playNote() {
+
     let playAudio = $(".form-check-audio:checked").val();
     if (!playAudio) return;
 
     let nowMatra = _notesEntity.find((n) => n.id === _activeMatra);
+    if (!nowMatra) return;
+
     let nowbole = nowMatra.boles.find((n) => n.id === _activeBole);
-    
-    if(nowbole.bole == "X") return;
+
+    if (!nowbole || nowbole.bole == "X") return;
 
     var note = audioContext.createOscillator();
     //note.frequency.value = _activeBole ===1 ? accentPitch:offBeatPitch;
-    note.frequency.value =  accentPitch;
+    note.frequency.value = $("#frequency").val();
     note.connect(audioContext.destination);
-
     let t = audioContext.currentTime;
-
-     
- 
     note.start(t);
     note.stop(t + 0.03);
 
   }
 
+  function SpeakBole() {
+    let nowMatra = _notesEntity.find((n) => n.id === _activeMatra);
+    let nowbole = nowMatra.boles.find((n) => n.id === _activeBole);
 
+    if (nowbole.bole == "X") return;
+
+    if (!window.speechSynthesis) {
+      console.log("No speechSynthesis");
+    }
+    else {
+      let u = new SpeechSynthesisUtterance();
+      u.text = nowbole.bole;
+      u.lang = "hi-IN";
+
+      u.volume = 1; // 0 to 1
+      u.rate = 8; // 0.1 to 10
+      u.pitch = 2; //0 to 2
+      speechSynthesis.speak(u);
+      console.log("speechSynthesis called for" + nowbole.bole);
+    }
+  }
 
 
   function changeTempo(value, changeValue) {
@@ -268,11 +248,9 @@ $(document).ready(function () {
     }
 
     $("#rangeTempLabel").text($("#rangeTempo").val());
-    _tempo = $("#rangeTempo").val();
+    
 
-    if (_isPlaying) {
-      //play();
-    }
+    if (_isPlaying) play();
   }
 
   function bindEvents() {
@@ -322,23 +300,19 @@ $(document).ready(function () {
   function reset() {
     _cycle = 0;
     _activeMatra = 0;
-
-    _tempo = 60;
-    _beats = 4;
-    _isPlaying = false;
+    _Seed = (1000 * 60) / $('#rangeTempo').val();
+ 
     _notes = "";
+
+    clearInterval(_funRiyaz);
 
     if (window.innerWidth < 500 || window.innerHeight < 500) {
       _mobile = true;
     } else {
       _mobile = false;
     }
-
-    _cursor = {
-      x: margin,
-      y: margin,
-    };
-    _seed = (measureWidth / 60) * (_tempo / 60);
+ 
+     
 
     $("#consoleSize").text(window.innerWidth + " x " + window.innerHeight);
   }
