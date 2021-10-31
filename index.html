@@ -23,10 +23,10 @@
 <body class="bg-dark">
   <div id="playground" class="container-fluid bg-white mt-1 pt-2 pb-3"></div>
 
-  <div class="container bg-secondary border rounded mt-4 pt-2 pb-1">
+  <div class="container-fluid bg-secondary border rounded mt-4 pt-2  pb-1" style="width: 95%;">
     <!-- Controls start  -->
 
-    <div class="row" id="settings">
+    <div class="row" id="settings" >
       <!-- Controls center start  -->
       <div class="col-lg-4 text-center">
         <div class="row mt-lg-2">
@@ -57,27 +57,9 @@
             </select>
             <label class="pl-5 ms-2" for="frequency">Frequency</label>
 
-            <select id="repeate" name="repeate" class="custom-select-lg ms-3">
-              <option>1</option>
-              <option selected>3</option>
-              <option>5</option>
-              <option>10</option>
-              <option>50</option>
-              <option>100</option>
+         
 
-            </select>
-            <label class="pl-5 ms-2" for="repeate">Cycles</label> 
-            <div class="form-check form-switch ms-2"  >
-              <input class="form-check-input form-check-autoAddTempo" type="checkbox" role="switch" id="autoAddTempo" />
-              <label class="form-check-label" for="audioCheck">Auto Tempo</label>
-            </div>
-
-            <div class="ms-5 text-muted">
-              <small id="consoleSize">x</small>
-              <small id="consoleCursor" class="ms-3 text-white"></small> :
-              <small id="consoleMaxX" class="ms-3 text-white"></small>
-              <small id="consoleMaxY" class="text-muted">x</small>
-            </div>
+         
           </div>
         </div>
       </div>
@@ -148,6 +130,29 @@
           धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट<br />धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|धि.ड.न.क<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ती.धा|ती.र.कि.ट<br />धा.त्ती|धा.X|धा.धा|ती.र.कि.ट|धा.त्ती|धा.X|धा.धा|तिं.ना<br />धि.ड.न.क|ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट
         </button>
       </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="ms-5 text-muted">
+      <small id="consoleSize">x</small>
+      <small id="consoleCursor" class="ms-3 text-white"></small> :
+      <small id="consoleMaxX" class="ms-3 text-white"></small>
+      <small id="consoleMaxY" class="text-muted">x</small>
+    </div>
+    <select id="repeate" name="repeate" class="custom-select-lg ms-3">
+      <option>1</option>
+      <option selected>3</option>
+      <option>5</option>
+      <option>10</option>
+      <option>50</option>
+      <option>100</option>
+
+    </select>
+    <label class="pl-5 ms-2" for="repeate">Cycles</label> 
+    <div class="form-check form-switch ms-2" style="display: none;" >
+      <input class="form-check-input form-check-autoAddTempo" type="checkbox" role="switch" id="autoAddTempo" />
+      <label class="form-check-label" for="audioCheck">Auto Tempo</label>
     </div>
   </div>
 

@@ -137,7 +137,7 @@ $(document).ready(function () {
 
   function pause() {
     _activeMatra = 0;
-
+    _isPlaying = false;
     togglePlay();
 
     clearInterval(_funRiyaz);
