@@ -1,8 +1,8 @@
 $(document).ready(function () {
-  var audioContext; 
+  var audioContext;
   var _isPlaying, _Seed;
-  var _notes, _cycle, _cycleTime;
-  var _activeMatra, _activeBole, _funRiyaz, _notesEntity;
+  var _cycle, _cycleTime, _repeatations, _activeMatraIndex, _activeBoleIndex;
+  var _notesList, _notesText, _funRiyaz, _activeMatra, _activeBole;
 
   // Load
   init();
@@ -19,19 +19,13 @@ $(document).ready(function () {
   function drawNotes() {
     reset();
 
-      _notes = $("#notesText")
-      .val()
-      .replace(/\t/g, "|")
-      .replace(/(\r\n|\n|\r)/gm, "|")
-      .replace(" ", "|");
-
-    let _notes1 = $("#notesText").val();
-    _notesEntity = new Array();
+    let _notesText = $("#notesText").val();
+    _notesList = new Array();
 
     document.getElementById("playground").innerHTML = "";
 
-    if (_notes1) {
-      let lines = _notes1.split("\n");
+    if (_notesText) {
+      let lines = _notesText.split("\n");
       let matraIndex = 0;
 
       // ----------- ROWS ------------");
@@ -53,12 +47,13 @@ $(document).ready(function () {
           // ----------- BOLES ------------");
           for (let b = 0; b < bols.length; b++) {
             let boleEntity = {
-              id: b + 1,
+              id: "bol_" + matraIndex + "_" + (b + 1),
+              index: b + 1,
               bole: bols[b],
             };
 
             var boleElement = getDivBole(
-              "bol_" + matraIndex + "_" + boleEntity.id,
+              boleEntity.id,
               12 / bols.length,
               boleEntity.bole
             );
@@ -72,14 +67,14 @@ $(document).ready(function () {
 
           matraElementO.appendChild(matraElementI);
           rowElement.appendChild(matraElementO);
-          _notesEntity.push(matraEntity);
+          _notesList.push(matraEntity);
         }
 
         document.getElementById("playground").appendChild(rowElement);
       }
     }
 
-    console.log("_notesEntity ----------", _notesEntity);
+    console.log("Notes List:", _notesList);
   }
 
   function getDivRow(id) {
@@ -123,20 +118,23 @@ $(document).ready(function () {
   function play() {
     audioContext = new AudioContext(); // initialize on event
     _isPlaying = true;
+    $("#videoDummy")[0].play();
 
     togglePlay();
 
-    drawNotes();
+    if (_notesText != $("#notesText").val()) drawNotes();
+
+    _cycleTime = new Date().getTime();
+    _cycle++;
+    _activeMatraIndex++;
 
     console.log("Cycle: started at ", new Date().toLocaleString());
-    _cycleTime = new Date().getTime();
-    $("#videoDummy")[0].play();
 
     _funRiyaz = setInterval(playMatra, _Seed);
   }
 
-  function pause() {
-    _activeMatra = 0;
+  function stop() {
+    _activeMatraIndex = 0;
     _isPlaying = false;
     togglePlay();
 
@@ -144,68 +142,78 @@ $(document).ready(function () {
   }
 
   function playMatra() {
-    _activeMatra++;
-    _activeBole = 0;
-
-    if (_activeMatra > _notesEntity.length) {
-      _activeMatra = 1;
-      _cycle++;
-      console.log(
-        "Cycle:",
-        _cycle,
-        " took ",
-        (((new Date().getTime() - _cycleTime) / 1000) % 60).toFixed(2),
-        " seconds"
-      );
-      _cycleTime = new Date().getTime();
-    }
+    $("#consoleCycle").text(_cycle);
+    $("#consoleLog").text(_repeatations);
 
     $(".tablaMatra").removeClass("bg-success");
-    $("#matra_" + _activeMatra).addClass("bg-success");
+    $("#matra_" + _activeMatraIndex).addClass("bg-success");
     $(".tablaBole").removeClass("bg-danger text-white");
     $(".tablaBole").addClass("bg-white text-black");
 
-    let nowMatra = _notesEntity.find((n) => n.id === _activeMatra);
+    _activeMatra = _notesList.find((n) => n.id === _activeMatraIndex);
 
-    let bolTime = _Seed / nowMatra.boles.length;
+    //console.log("------------------_activeMatraIndex", _activeMatraIndex);
+    // console.log("_activeMatra", _activeMatra);
 
-    setTimeout(playBol, 0);
-    for (let p = 0; p < nowMatra.boles.length - 1; p++) {
+    if (!_activeMatra) return;
+
+    // Play Bole
+
+    _activeBoleIndex = 0;
+    let bolTime = _Seed / _activeMatra.boles.length;
+
+    playBol(); // First Bole
+
+    for (let p = 0; p < _activeMatra.boles.length - 1; p++) {
       setTimeout(playBol, bolTime * (p + 1));
-      // console.log(p+1, "-",seed* (p+1));
     }
 
-    document.getElementById('matra_' + _activeMatra).scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+    document.getElementById("matra_" + _activeMatraIndex).scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "nearest",
+    });
 
+    if (_activeMatraIndex === _notesList.length) {
+      if (_cycle + 1 > _repeatations) {
+        stop();
+        console.log("Auto Stop Called");
+        return;
+      } else {
+        _cycle++;
+        _activeMatraIndex = 1;
+        console.log(
+          "Cycle:",
+          _cycle,
+          " took ",
+          (((new Date().getTime() - _cycleTime) / 1000) % 60).toFixed(2),
+          " seconds"
+        );
+        _cycleTime = new Date().getTime();
+      }
+    } else {
+      _activeMatraIndex++;
+    }
   }
 
   function playBol() {
-    _activeBole++;
+    _activeBoleIndex++;
 
-    //$("#consoleMaxX").text(_activeBole);
-    $("#bol_" + _activeMatra + "_" + _activeBole).removeClass(
-      "bg-white text-black"
-    );
-    $("#bol_" + _activeMatra + "_" + _activeBole).addClass(
-      "bg-danger text-white"
-    );
+    _activeBole = _activeMatra.boles.find((n) => n.index === _activeBoleIndex);
+
+    //console.log("   _activeBoleIndex", _activeBoleIndex);
+    // console.log("   _activeBole", _activeBole);
+    //console.log("   _activeBole ID", "#" + _activeBole.id);
+
+    $("#" + _activeBole.id).removeClass("bg-white text-black");
+    $("#" + _activeBole.id).addClass("bg-danger text-white");
 
     playNote();
-
-
   }
 
   function playNote() {
-
-    let playAudio = $(".form-check-audio:checked").val();
-    if (!playAudio) return;
-
-    let nowMatra = _notesEntity.find((n) => n.id === _activeMatra);
-    if (!nowMatra) return;
-
-    let nowbole = nowMatra.boles.find((n) => n.id === _activeBole);
-
-    if (!nowbole || nowbole.bole == "X") return;
+    if (!_activeBole || _activeBole.bole == "X") return;
+    if (!$(".form-check-audio:checked").val()) return;
 
     var note = audioContext.createOscillator();
     //note.frequency.value = _activeBole ===1 ? accentPitch:offBeatPitch;
@@ -214,19 +222,17 @@ $(document).ready(function () {
     let t = audioContext.currentTime;
     note.start(t);
     note.stop(t + 0.03);
-
   }
 
   function SpeakBole() {
-    let nowMatra = _notesEntity.find((n) => n.id === _activeMatra);
-    let nowbole = nowMatra.boles.find((n) => n.id === _activeBole);
+    let nowMatra = _notesList.find((n) => n.id === _activeMatraIndex);
+    let nowbole = nowMatra.boles.find((n) => n.id === _activeBoleIndex);
 
     if (nowbole.bole == "X") return;
 
     if (!window.speechSynthesis) {
       console.log("No speechSynthesis");
-    }
-    else {
+    } else {
       let u = new SpeechSynthesisUtterance();
       u.text = nowbole.bole;
       u.lang = "hi-IN";
@@ -239,7 +245,6 @@ $(document).ready(function () {
     }
   }
 
-
   function changeTempo(value, changeValue) {
     if (changeValue) {
       $("#rangeTempo").val(Number($("#rangeTempo").val()) + changeValue);
@@ -248,14 +253,13 @@ $(document).ready(function () {
     }
 
     $("#rangeTempLabel").text($("#rangeTempo").val());
-    
 
     if (_isPlaying) play();
   }
 
   function bindEvents() {
     $("#btnPlay").on("click", play);
-    $("#btnPause").on("click", pause);
+    $("#btnPause").on("click", stop);
 
     $("#notesText").on("focusout", drawNotes);
 
@@ -299,9 +303,11 @@ $(document).ready(function () {
 
   function reset() {
     _cycle = 0;
-    _activeMatra = 0;
-    _Seed = (1000 * 60) / $('#rangeTempo').val();
- 
+    _activeMatraIndex = 0;
+    _Seed = (1000 * 60) / $("#rangeTempo").val();
+
+    _repeatations = Number($("#repeatations").val());
+
     _notes = "";
 
     clearInterval(_funRiyaz);
@@ -311,8 +317,6 @@ $(document).ready(function () {
     } else {
       _mobile = false;
     }
- 
-     
 
     $("#consoleSize").text(window.innerWidth + " x " + window.innerHeight);
   }
