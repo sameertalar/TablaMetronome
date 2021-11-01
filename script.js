@@ -2,7 +2,7 @@ $(document).ready(function () {
   var audioContext;
   var _isPlaying, _Seed;
   var _cycle, _cycleTime, _repeatations, _activeMatraIndex, _activeBoleIndex;
-  var _notesList, _notesText, _funRiyaz, _activeMatra, _activeBole;
+  var _notesList, _notesText, _funRiyaz, _activeMatra, _activeBole, _baseTempo;
 
   // Load
   init();
@@ -176,8 +176,16 @@ $(document).ready(function () {
 
     if (_activeMatraIndex === _notesList.length) {
       if (_cycle + 1 > _repeatations) {
-        stop();
-        console.log("Auto Stop Called");
+        if (
+          $(".form-check-autoAddTempo:checked").val() &&
+          $("#rangeTempo").val() < 250
+        ) {
+          autoTempPlay();
+        } else {
+          stop();
+          console.log("Auto Stop Called");
+        }
+
         return;
       } else {
         _cycle++;
@@ -253,6 +261,7 @@ $(document).ready(function () {
     }
 
     $("#rangeTempLabel").text($("#rangeTempo").val());
+    _baseTempo = $("#rangeTempo").val();
 
     if (_isPlaying) play();
   }
@@ -305,10 +314,9 @@ $(document).ready(function () {
     _cycle = 0;
     _activeMatraIndex = 0;
     _Seed = (1000 * 60) / $("#rangeTempo").val();
+    _baseTempo = $("#rangeTempo").val();
 
     _repeatations = Number($("#repeatations").val());
-
-    _notes = "";
 
     clearInterval(_funRiyaz);
 
@@ -319,6 +327,16 @@ $(document).ready(function () {
     }
 
     $("#consoleSize").text(window.innerWidth + " x " + window.innerHeight);
+  }
+
+  function autoTempPlay() {
+    _cycle = 0;
+    _activeMatraIndex = 1;
+    $("#rangeTempo").val(Number($("#rangeTempo").val()) + 5);
+    $("#rangeTempLabel").text($("#rangeTempo").val());
+    _Seed = (1000 * 60) / $("#rangeTempo").val();
+    clearInterval(_funRiyaz);
+    _funRiyaz = setInterval(playMatra, _Seed);
   }
 
   function setConstants() {
