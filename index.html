@@ -4,7 +4,7 @@
     <!-- Forked from http://jsfiddle.net/m1erickson/LumMX/ -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ishaan & Reyansh's Metronome</title>
+    <title>Sameer Talar's Metronome</title>
     <meta
       name="description"
       content="Easy to use online metronome. Free, ad-free and open source. Set or tap tempo."
@@ -94,9 +94,9 @@
                 class="custom-select-lg ms-1"
               >
                 <option>100</option>
-                <option selected>200</option>
+                <option>200</option>
                 <option>350</option>
-                <option>700</option>
+                <option selected>700</option>
                 <option>1200</option>
                 <option>2000</option>
                 <option>5000</option>
@@ -144,20 +144,23 @@
         <div class="col-lg-4 text-center">
           <div class="row mt-lg-2">
             <div class="col d-flex flex-row text-center">
-            
               <small class="ms-2" id="consoleSize">x</small>
               <small id="consoleLog" class="ms-2">- Be Here Now </small>
             </div>
           </div>
           <div class="row mt-lg-2">
             <div class="col d-flex flex-row">
-              <lable id="consoleCycle" class="text-white ">0</lable>   <i class="	fa fa-angle-double-right  ms-1 mt-1" aria-hidden="true"></i>
+              <lable id="consoleCycle" class="text-white">0</lable>
+              <i
+                class="fa fa-angle-double-right ms-1 mt-1"
+                aria-hidden="true"
+              ></i>
               <label class="pl-5 ms-1" for="repeatations">Cycles</label>
-              <select id="repeatations"   class="custom-select-lg ms-1">
-                <option selected >1</option>
-                <option >3</option>
+              <select id="repeatations" class="custom-select-lg ms-1">
+                <option>1</option>
+                <option>3</option>
                 <option>5</option>
-                <option>10</option>
+                <option selected>10</option>
                 <option>50</option>
                 <option>100</option>
               </select>
@@ -250,6 +253,13 @@
           >
             धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.X|ती.र.कि.ट|धा.X
           </button>
+          <button
+            type="button"
+            class="btn btn-sm text-muted small"
+            onclick="populateNote(this)"
+          >
+            धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.X|ती.र.कि.ट|धा.X<br />धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.X|ती.र.कि.ट|धा.X<br />धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.X|ती.र.कि.ट|धा.X
+          </button>
         </div>
         <div class="col-md-4">
           <button
@@ -257,7 +267,7 @@
             class="btn btn-sm text-muted small"
             onclick="populateNote(this)"
           >
-            धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट<br />धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|धि.ड.न.क<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ती.धा|ती.र.कि.ट<br />धा.त्ती|धा.X|धा.धा|ती.र.कि.ट|धा.त्ती|धा.X|धा.धा|तिं.ना<br />धि.ड.न.क|ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट
+            धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|ता.ता|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.ती.र|कि.ट.धा|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|तिं.ना<br />ता.ती.र|कि.ट.ता|ती.र.कि.ट|धा.धा|ती.र.कि.ट|धा.धिं|धा.धा|धिं.ना<br />धा.धा|ती.र.कि.ट|धा.धा|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|तिं.ना<br />ता.ता|ती.र.कि.ट|ता.ता|तिं.ना|X.धा|ती.र.कि.ट|धा.धा|धिं.ना<br />धा.X|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट|धा.धा|तिं.ना|ती.र.कि.ट<br />ता.X|ती.र.कि.ट|ता.ता|तिं.ना|ती.र.कि.ट|धा.धा|धिं.ना|ती.र.कि.ट<br />धा.धिं|धा.X|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|तिं.ना|धि.ड.न.क<br />ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.ती.र|कि.ट.धा|त्ती.धा|ती.र.कि.ट<br />धा.त्ती|धा.X|धा.धा|ती.र.कि.ट|धा.त्ती|धा.X|धा.धा|तिं.ना<br />धि.ड.न.क|ती.र.कि.ट|ना.क.ता.क|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट<br />धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.X|ती.र.कि.ट|धा.X<br />धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.X|ती.र.कि.ट|धा.X<br />धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.त्ती|धा.गे|न.धा|ती.र.कि.ट|धा.X|ती.र.कि.ट|धा.X
           </button>
         </div>
       </div>
@@ -298,7 +308,7 @@
         <a
           class="bg-dark border rounded-circle p-2"
           href="#settings"
-          style="color: #495057; font-size: 15px; text-decoration: none"
+          style="color: #495057; font-size: 25px; text-decoration: none"
           aria-hidden="true"
         >
           <video
