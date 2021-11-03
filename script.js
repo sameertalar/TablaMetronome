@@ -34,6 +34,8 @@ $(document).ready(function () {
 
         let matras = lines[l].split("|");
 
+        let rowInnerHtml= "";
+
         // ----------- MATRAS ------------");
         for (let m = 0; m < matras.length; m++) {
           matraIndex++;
@@ -65,8 +67,19 @@ $(document).ready(function () {
             //  console.log("Bole:",bol);
           }
 
+          if (m % 2 === 0)  rowInnerHtml += "<div class='col-sm-3 '><div class='row  '>";  
+         // if (m % 2 === 0)  rowElement.appendChild("<div class='col-4'><div class='row'>");
+
+
+          // rowInnerHtml += matraElementI.outerHTML;
           matraElementO.appendChild(matraElementI);
-          rowElement.appendChild(matraElementO);
+           rowInnerHtml += matraElementO.outerHTML;
+         // matraElementO.appendChild(matraElementI);
+          //rowElement.appendChild(matraElementO);
+
+          if (m % 2 !== 0)  rowInnerHtml += "</div></div>";   
+         rowElement.innerHTML =rowInnerHtml;
+
           _notesList.push(matraEntity);
         }
 
@@ -80,7 +93,7 @@ $(document).ready(function () {
   function getDivRow(id) {
     let div = document.createElement("div");
     if (id) div.id = id;
-    div.className = "row p-1 mb-1 ms-lg-2 ";
+    div.className = "row p-1 mb-1 ms-lg-2   ";
 
     return div;
   }
@@ -90,15 +103,18 @@ $(document).ready(function () {
 
     if (outer) {
       if (id) div.id = id;
-      div.className = "col-sm-1 py-1 border rounded  tablaMatra ";
+      div.className = "col-6 py-1 rounded  tablaMatra ";
     } else {
-      let cssClass = "bg-warning border-warning ";
+       
+      let cssClass = "row bg-warning border-warning ";
 
       if (id % 2 != 0) cssClass = "bg-info border-info";
 
-      div.className =
-        "row border rounded rounded-circle text-center py-1 " + cssClass;
+      div.className =         "row border rounded rounded-circle text-center py-1 " + cssClass;
+      
     }
+
+  
 
     return div;
   }
