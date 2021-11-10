@@ -34,7 +34,7 @@ $(document).ready(function () {
 
         let matras = lines[l].split("|");
 
-        let rowInnerHtml= "";
+        let rowInnerHtml = "";
 
         // ----------- MATRAS ------------");
         for (let m = 0; m < matras.length; m++) {
@@ -67,18 +67,18 @@ $(document).ready(function () {
             //  console.log("Bole:",bol);
           }
 
-          if (m % 2 === 0)  rowInnerHtml += "<div class='col-sm-3 '><div class='row  '>";  
-         // if (m % 2 === 0)  rowElement.appendChild("<div class='col-4'><div class='row'>");
-
+          if (m % 2 === 0)
+            rowInnerHtml += "<div class='col-sm-3 '><div class='row  '>";
+          // if (m % 2 === 0)  rowElement.appendChild("<div class='col-4'><div class='row'>");
 
           // rowInnerHtml += matraElementI.outerHTML;
           matraElementO.appendChild(matraElementI);
-           rowInnerHtml += matraElementO.outerHTML;
-         // matraElementO.appendChild(matraElementI);
+          rowInnerHtml += matraElementO.outerHTML;
+          // matraElementO.appendChild(matraElementI);
           //rowElement.appendChild(matraElementO);
 
-          if (m % 2 !== 0)  rowInnerHtml += "</div></div>";   
-         rowElement.innerHTML =rowInnerHtml;
+          if (m % 2 !== 0) rowInnerHtml += "</div></div>";
+          rowElement.innerHTML = rowInnerHtml;
 
           _notesList.push(matraEntity);
         }
@@ -105,16 +105,13 @@ $(document).ready(function () {
       if (id) div.id = id;
       div.className = "col-6 py-1 rounded  tablaMatra ";
     } else {
-       
       let cssClass = "row bg-warning border-warning ";
 
       if (id % 2 != 0) cssClass = "bg-info border-info";
 
-      div.className =         "row border rounded rounded-circle text-center py-1 " + cssClass;
-      
+      div.className =
+        "row border rounded rounded-circle text-center py-1 " + cssClass;
     }
-
-  
 
     return div;
   }
@@ -178,7 +175,7 @@ $(document).ready(function () {
     _activeBoleIndex = 0;
     let bolTime = _Seed / _activeMatra.boles.length;
 
-    playBol(); // First Bole
+    playBol(true); // First Bole
 
     for (let p = 0; p < _activeMatra.boles.length - 1; p++) {
       setTimeout(playBol, bolTime * (p + 1));
@@ -220,7 +217,7 @@ $(document).ready(function () {
     }
   }
 
-  function playBol() {
+  function playBol(first) {
     _activeBoleIndex++;
 
     _activeBole = _activeMatra.boles.find((n) => n.index === _activeBoleIndex);
@@ -232,7 +229,7 @@ $(document).ready(function () {
     $("#" + _activeBole.id).removeClass("bg-white text-black");
     $("#" + _activeBole.id).addClass("bg-danger text-white");
 
-    playNote();
+    if (first) playNote();
   }
 
   function playNote() {
