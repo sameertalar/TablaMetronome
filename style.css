@@ -1,45 +1,28 @@
-
- 
- textarea
- {
+textarea {
   /* font-family: 'Poppins', serif; */
-   font-size: 0.9em;
- 
- }
- 
- 
- .tinytext {
-   width: 10px
- }
-
-
-
-
-#playground
-{
-    font-weight: 600;
-  
-    font-family: 'Poppins', serif;
-   /* font-family: 'Teko', serif;  */
-    font-size: 1.1em;
-    color:black;
-    
+  font-size: 0.9em;
 }
 
- 
+.tinytext {
+  width: 10px;
+}
+
+#playground {
+  font-weight: 600;
+
+  font-family: "Poppins", serif;
+  /* font-family: 'Teko', serif;  */
+  font-size: 1.1em;
+  color: black;
+}
+
+.nav-link {
+  color: #fd7e14;
+}
 
 @media only screen and (max-width: 1000px) {
-
-  #playground
-{
-   
-  
-  font-weight: 500;
-    font-family: 'Teko', serif;   
-   
-    
-    
-}
-
-
+  #playground {
+    font-weight: 500;
+    font-family: "Teko", serif;
+  }
 }
