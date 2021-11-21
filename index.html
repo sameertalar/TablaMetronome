@@ -213,7 +213,7 @@ Welcome</textarea
                 role="tab"
                 aria-controls="nav-6Beat"
                 aria-selected="false"
-                >6 beats</a
+                >6,12 Beats</a
               >
               <a
                 class="nav-link"
@@ -223,7 +223,7 @@ Welcome</textarea
                 role="tab"
                 aria-controls="nav-7Beats"
                 aria-selected="false"
-                >7,14 beats</a
+                >7,14 Beats</a
               >
               <a
                 class="nav-link"
@@ -233,7 +233,7 @@ Welcome</textarea
                 role="tab"
                 aria-controls="nav-8Beats"
                 aria-selected="false"
-                >8 beats</a
+                >8 Beats</a
               >
               <a
                 class="nav-link active"
@@ -243,7 +243,7 @@ Welcome</textarea
                 role="tab"
                 aria-controls="nav-16Beats"
                 aria-selected="true"
-                >16 beats</a
+                >16 Beats</a
               >
             </div>
           </nav>
@@ -254,7 +254,81 @@ Welcome</textarea
               role="tabpanel"
               aria-labelledby="nav-home-tab"
             >
-              <p>nav-6Beats</p>
+              <div class="row mt-lg-3">
+                <div class="col-md-3">
+                  <h4>► दादरा ताल (6 Beats)</h4>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-primary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|तिं|तिं|त.ग|धिं|धिं"
+                  >
+                    ठेका - धा|तिं|तिं|त.ग|धिं|धिं
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-warning"
+                    onclick="populateNote(this)"
+                    data-notes="ताₜ.ताₜ.X.X|ताₜ.ताₜ.X.X"
+                  >
+                    थाप(Uthan) - ताₜ.ताₜ.X.X|ताₜ.ताₜ.X.X
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा.ता|तिं.↦.त.ग|धा.तिं|धा.ता|तिं.↦.त.ग|धा.तिं"
+                  >
+                    दुगन - धा.ता|तिं.↦.त.ग|धा.तिं|धा.ता|तिं.↦.त.ग|धा.तिं
+                  </button>
+                </div>
+                <div class="col-md-3">
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-warning"
+                    onclick="populateNote(this)"
+                    data-notes="धा|ति.र|कि.ट|धा|ति.र|कि.ट|धा"
+                  >
+                    तिहाई - धा|ति.र|कि.ट|धा|ति.र|कि.ट|धा
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|ति₂.ट|धा.गे |ना.गे |तिं.ना|कि.ना*ता|ति₂.ट|धा.गे |ना.गे |धिंना|गि.ना"
+                  >
+                    दुगन (12मात्रा) - धा|ति₂.ट|धा.गे |ना.गे |तिं.ना|कि.ना
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा.ति₂.ट|धा.गे.ना.गे|तिं.ना.कि.ना|ता.ति₂.ट|धा.गे.ना.गे|धिं.ना.गि.ना"
+                  >
+                    दुगन 2x - धा.ति₂.ट|धा.गे.ना.गे|तिं.ना.कि.ना
+                  </button>
+                </div>
+                <div class="col-md-3">
+                  <h4>► एक ताल (12 Beats)</h4>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-primary"
+                    onclick="populateNote(this)"
+                    data-notes="धिं|धिं|धा.गे|ति.र.कि.ट|तू|ना*क|ता|धा.गे|ति.र.कि.ट|धी|ना"
+                  >
+                    ठेका - धिं|धिं|धा.गे|ति.र.कि.ट|तू|ना
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा.गे|ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट*धा|ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट*धा|ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट"
+                  >
+                    मुखडा - धा.गे|ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट
+                  </button>
+                </div>
+                <div class="col-md-3"></div>
+              </div>
             </div>
             <div
               class="tab-pane fade"
@@ -262,7 +336,48 @@ Welcome</textarea
               role="tabpanel"
               aria-labelledby="nav-profile-tab"
             >
-              <p>nav-7Beats</p>
+              <div class="row mt-lg-3">
+                <div class="col-md-3">
+                  <h4>►रूपक ताल (7 Beats)</h4>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-primary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|ति|ट|धा|धा|ति|ट*ता|ति|ट|ता₂⁺|↦|ता₂⁺|↦"
+                  >
+                    ठेका - ति₄⁺|ति₄⁺|ना.ना|धि₄|ना.ना|धि₄|ना.ना
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा.↦.ति.र|कि.ट.धा.↦|ति.र.कि.ट*धा.धा|ति.र.कि.ट|धा.धा|ति.र.कि.ट*ता.↦.ति.र|कि.ट.ता.↦|ति.र.कि.ट*धा.धा|ति.र.कि.ट|धा.धा|ति.र.कि.ट"
+                  >
+                    कायदा (14 Beats) - धा.↦.ति.र|कि.ट.धा.↦|ति.र.कि.ट
+                  </button>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                  <h4>►दीपचन्दी ताल (14 Beats)</h4>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-primary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|ति|ट|धा|धा|ति|ट*ता|ति|ट|ता₂⁺|↦|ता₂⁺|↦"
+                  >
+                    ठेका - धा|ति|ट|धा|धा|ति|ट
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|ति.र|कि.ट|धा|धा|ति.र|कि.ट*ता|ति.र|कि.ट|धा|धा|ति.र|कि.ट"
+                  >
+                    कायदा - धा|ति.र|कि.ट|धा|धा|ति.र|कि.ट
+                  </button>
+                </div>
+                <div class="col-md-3"></div>
+              </div>
             </div>
             <div
               class="tab-pane fade"
@@ -270,7 +385,138 @@ Welcome</textarea
               role="tabpanel"
               aria-labelledby="nav-contact-tab"
             >
-              <p>nav-8Beats</p>
+              <div class="row mt-lg-3">
+                <div class="col-md-3">
+                  <h4>► कहरवा ताल</h4>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-primary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|तिं|त.ग|धिं|धा|तिं|त.ग|धिं"
+                  >
+                    ठेका - धा|तिं|त.ग|धिं|x2
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|ता.ता|त.ग|धा.ता|धा|ता.ता|त.ग|धा.ता"
+                  >
+                    दुगन - धा|ता.ता|त.ग|धा.ता|x2
+                  </button>
+                </div>
+                <div class="col-md-3">
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-primary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|ति₂.ट|तिं|तिं|ता⁺|ति₂.ट|धिं|धिं"
+                  >
+                    ठेका - धा|ति₂.ट|तिं|तिं|ता⁺|ति₂.ट|धिं|धिं
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|ति₃|ता|ति₃|ता|ति₃|धा|ति₃"
+                  >
+                    दुगन I- धा|ति₃|ता|ति₃|ता|ति₃|धा|ति₃
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|ति₃|धा|ति₃|ता|ति₃|धा|ति₃"
+                  >
+                    दुगन II- धा|ति₃|धा|ति₃|ता|ति₃|धा|ति₃
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा.ति₃|ताति₃|ताति₃|धा.ति₃|धा.ति₃|ताति₃|ताति₃|धा.ति₃"
+                  >
+                    दुगन 2x- धा.ति₃|ताति₃|ताति₃|धा.ति₃|x2
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा.ति₃|धा.ति₃|ताति₃|धा.ति₃|धा.ति₃|धा.ति₃|ताति₃|धा.ति₃"
+                  >
+                    दुगन 2x- धा.ति₃|धा.ति₃|ताति₃|धा.ति₃|x2
+                  </button>
+                </div>
+                <div class="col-md-3">
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धि₄.ता|ति₄क.डाँ|ति₄.ता|धि₄.ता|धि₄.ता|ति₄क.डाँ|ति₄.ता|धि₄.ता"
+                  >
+                    दुगन- धि₄.ता|ति₄क.डाँ|ति₄.ता|धि₄.ता|x2
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-warning"
+                    onclick="populateNote(this)"
+                    data-notes="ता⁺|ता⁺|ति.ट|ता⁺|ति.ट|ता⁺|ता⁺|S"
+                  >
+                    थाप(Uthan) ता⁺|ता⁺|ति.ट|ता⁺|ति.ट|ता⁺|ता⁺|S
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धि.ट|ता.ता|ति.ट|धा.ता|धि.ट|ता.ता|ति.ट|धा.ता"
+                  >
+                    दुगन- धि.ट|ता.ता|ति.ट|धा.ता|x2
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा.ति₃|ति₃.ता|ता.ति₃|धि₃.ता|धा.ति₃|ति₃.ता|ता.ति₃|धि₃.ता"
+                  >
+                    दुगन- धा.ति₃|ति₃.ता|ता.ति₃|धि₃.ता|x2
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा|ति₂.ट|ता.ता|ति.ट|ता|ति₂.ट|धा.धा|ति₂.ट"
+                  >
+                    I- धा|ति₂.ट|ता.ता|ति.ट|ता|ति₂.ट|धा.धा|ति₂.ट
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धा.धा|धि₂.ट|धा.धा|धि₂.ट|धा.धा|धि₂.ट|ता.ता|ति.ट"
+                  >
+                    II- धा.धा|धि₂.ट|धा.धा|धि₂.ट|धा.धा|धि₂.ट|ता.ता|ति.ट
+                  </button>
+                </div>
+                <div class="col-md-3">
+                  <h4>► Bhajani Theka</h4>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-primary"
+                    onclick="populateNote(this)"
+                    data-notes="धिं|ता|धिं|ता.ता|तिं⁺|ता|धिं|ता.ता"
+                  >
+                    ठेका - धिं|ता|धिं|ता.ता|तिं⁺|ता|धिं|ता.ता
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm small btn-secondary"
+                    onclick="populateNote(this)"
+                    data-notes="धिं|ता|धिं|ता.ता|ता.ता|ति.र.कि.ट|ता.ता|ति.र.कि.ट"
+                  >
+                    ठेका II- धिं|ता|धिं|ता.ता|ता.ता|ति.र.कि.ट|ता.ता|ति.र.कि.ट
+                  </button>
+                </div>
+              </div>
             </div>
             <div
               class="tab-pane fade show active"
@@ -287,7 +533,7 @@ Welcome</textarea
                     onclick="populateNote(this)"
                     data-notes="धा|धिं|धिं|धा|धा|धिं|धिं|धा* धा|तिं|तिं|ता|ता|धिं|धिं|धा"
                   >
-                    Theka - धा|धिं|धिं|धा|धा|धिं|धिं|धा
+                    ठेका - धा|धिं|धिं|धा|धा|धिं|धिं|धा
                   </button>
                   <button
                     type="button"
@@ -317,7 +563,7 @@ Welcome</textarea
                 <div class="col-md-3">
                   <button
                     type="button"
-                    class="btn btn-sm btn-primary"
+                    class="btn btn-sm btn-danger"
                     data-notes="धा.धा|ति.र.कि.ट|धा.धा|तिं.ना|ता.ता|ति.र.कि.ट|धा.धा|धिं.ना*धा.धा|ति.र.कि.ट|धा.धा|तिं.ना|ता.ता|ति.र.कि.ट|धा.धा|धिं.ना*धा.धा|ति.र.कि.ट|धा.धा|ति.र.कि.ट|धा.धा|ति.र.कि.ट|धा.धा|तिं.ना*ता.ता|ति.र.कि.ट|ता.ता|ति.र.कि.ट|धा.धा|ति.र.कि.ट|धा.धा|धिं.ना*धा.↦.ति.र|कि.ट.धा.↦|ति.र.कि.ट|धा.धा|ति.र.कि.ट|धा.धिं|धा.धा|तिं.ना*ता.↦.ति.र|कि.ट.ता.↦|ति.र.कि.ट|धा.धा|ति.र.कि.ट|धा.धिं|धा.धा|धिं.ना*धा.धा|ति.र.कि.ट|धा.धा|तिं.ना|X.धा|ति.र.कि.ट|धा.धा|तिं.ना*ता.ता|ति.र.कि.ट|ता.ता|तिं.ना|X.धा|ति.र.कि.ट|धा.धा|धिं.ना*धा.X|ति.र.कि.ट|धा.धा|तिं.ना|ति.र.कि.ट|धा.धा|तिं.ना|ति.र.कि.ट*ता.X|ति.र.कि.ट|ता.ता|तिं.ना|ति.र.कि.ट|धा.धा|धिं.ना|ति.र.कि.ट*धा.धिं|X.धा|ति.र.कि.ट|धा.ति₃|धा.↦.ति.र|कि.ट.धा.↦|तिं.ना|घि.ङ.न.क*ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट|धा.ति₃|धा.↦.ति.र|कि.ट.धा.↦|ति₄.धा|ति.र.कि.ट*धा.ति₃|धा.X|धा.धा|ति.र.कि.ट|धा.ति₃|धा.X|धा.X|तिं.ना*घि.ङ.न.क|ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट|धा.ति₃|धा.गे|न.धा|ति.र.कि.ट*धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.X|ति.र.कि.ट|धा.X*धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.X|ति.र.कि.ट|धा.X*धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.X|ति.र.कि.ट|धा.X"
                     onclick="populateNote(this)"
                   >
@@ -365,7 +611,7 @@ Welcome</textarea
                   >
                     5 - धा.X|ति.र.कि.ट|धा.धा|तिं.ना
                   </button>
-                  <h4 class="mx-5">तिन ताल</h4>
+                  <h4 class="mx-5">► तिन ताल</h4>
                 </div>
                 <div class="col-md-3">
                   <button
@@ -387,7 +633,7 @@ Welcome</textarea
                   </button>
                   <button
                     type="button"
-                    class="btn btn-sm small btn-secondary"
+                    class="btn btn-sm small btn-warning"
                     onclick="populateNote(this)"
                     data-notes="धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.X|ति.र.कि.ट|धा.X*धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.X|ति.र.कि.ट|धा.X*धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.ति₃|धा.गे|न.धा|ति.र.कि.ट|धा.X|ति.र.कि.ट|धा.X"
                   >

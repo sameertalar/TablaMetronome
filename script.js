@@ -93,7 +93,7 @@ $(document).ready(function () {
   function getDivRow(id) {
     let div = document.createElement("div");
     if (id) div.id = id;
-    div.className = "row p-1 mb-1 ms-lg-2   ";
+    div.className = "row p-1  ms-lg-2   ";
 
     return div;
   }
@@ -110,7 +110,7 @@ $(document).ready(function () {
       if (id % 2 != 0) cssClass = "bg-info border-info";
 
       div.className =
-        "row border rounded rounded-circle text-center py-1 " + cssClass;
+        "row border rounded rounded-circle text-center py-3 " + cssClass;
     }
 
     return div;
