@@ -25,7 +25,7 @@ $(document).ready(function () {
     document.getElementById("playground").innerHTML = "";
 
     if (_notesText) {
-      let lines = _notesText.split("\n");
+      let lines = _notesText.split("*");
       let matraIndex = 0;
 
       // ----------- ROWS ------------");
@@ -103,7 +103,7 @@ $(document).ready(function () {
 
     if (outer) {
       if (id) div.id = id;
-      div.className = "col-6 py-1 rounded  tablaMatra ";
+      div.className = "col-6 py-1 border rounded  tablaMatra ";
     } else {
       let cssClass = "row bg-warning border-warning ";
 
