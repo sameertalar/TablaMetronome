@@ -160,7 +160,7 @@ Welcome</textarea
                   class="form-check-input form-check-metronome"
                   type="checkbox"
                   role="switch"
-                  checked
+                  
                 />
               </div>
               <label class="pl-3 ms-2" for="form-check-offbeat">Offbeat</label>
@@ -272,7 +272,7 @@ Welcome</textarea
                 >8 Beats</a
               >
               <a
-                class="nav-link active"
+                class="nav-link "
                 id="nav-16Beats-tab"
                 data-bs-toggle="tab"
                 href="#nav-16Beats"
@@ -281,6 +281,26 @@ Welcome</textarea
                 aria-selected="true"
                 >16 Beats</a
               >
+              <a
+              class="nav-link active"
+              id="nav-Practice-tab"
+              data-bs-toggle="tab"
+              href="#nav-Practice"
+              role="tab"
+              aria-controls="nav-Practice"
+              aria-selected="true"
+              >Practice</a
+            >
+            <a
+            class="nav-link "
+            id="nav-Test-tab"
+            data-bs-toggle="tab"
+            href="#nav-Test"
+            role="tab"
+            aria-controls="nav-Test"
+            aria-selected="false"
+            >Test</a
+          >
             </div>
           </nav>
           <div class="tab-content" id="nav-tabContent">
@@ -555,7 +575,7 @@ Welcome</textarea
               </div>
             </div>
             <div
-              class="tab-pane fade show active"
+              class="tab-pane fade "
               id="nav-16Beats"
               role="tabpanel"
               aria-labelledby="nav-contact-tab"
@@ -651,8 +671,7 @@ Welcome</textarea
                 </div>
                 <div class="col-md-3">
                   <button
-                    type="button"
-                    id="defaultButton"
+                    type="button"                   
                     class="btn btn-sm small btn-secondary"
                     onclick="populateNote(this)"
                     data-notes="धा.धिं|X.धा|ति.र.कि.ट|धा.ति₃|धा.↦.ति.र|कि.ट.धा.↦|तिं.ना|घि.ङ.न.क*ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट|धा.ति₃|धा.↦.ति.र|कि.ट.धा.↦|ति₄.धा|ति.र.कि.ट"
@@ -679,6 +698,72 @@ Welcome</textarea
               </div>
               <!-- Nav Content End 16-->
             </div>
+<!-- Tab-Practice-Content-Start -->
+<div
+   class="tab-pane fade show active "
+   id="nav-Practice"
+   role="tabpanel"
+   aria-labelledby="nav-Practice-tab"
+   >
+   <div class="row mt-lg-3 mb-3">
+      <div class="col-md-3">  
+        
+        <button
+        type="button"
+        class="btn btn-sm small btn-secondary"
+        onclick="populateNote(this)"
+        data-notes="घे.घे|ति.ट|के.के|ना.ना|के.के|ति.ट|घे.घे|ना.ना"
+      >
+      घे.घे|ति.ट|के.के|ना.ना|के.के|ति.ट|घे.घे|ना.ना
+      </button> 
+      <button
+      type="button"
+      class="btn btn-sm small btn-secondary"
+      onclick="populateNote(this)"
+      data-notes="ता.ता|ति.र.कि.ट|ता.ता|ति.र.कि.ट"
+    >
+       ता.ता|ति.र.कि.ट|ता.ता|ति.र.कि.ट
+    </button>
+      </div>
+      <div class="col-md-3"> 
+        <button
+        type="button"
+        id="defaultButton"
+        class="btn btn-sm small btn-secondary"
+        onclick="populateNote(this)"
+        data-notes="ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट|ना.क.ता.क"
+      >
+      ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट|ना.क.ता.क
+      </button>       
+         <button
+        type="button"
+        class="btn btn-sm small btn-secondary"
+        onclick="populateNote(this)"
+        data-notes="घि.ङ.न.क|ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट"
+      >
+      घि.ङ.न.क|ति.र.कि.ट|ना.क.ता.क|ति.र.कि.ट
+      </button>
+    </div>
+   </div>
+</div>
+
+<!-- Tab-Practice-Content-End -->
+
+<!-- Tab-Test-Content-Start -->
+<div
+   class="tab-pane fade"
+   id="nav-Test"
+   role="tabpanel"
+   aria-labelledby="nav-Test-tab"
+   >
+   <div class="row mt-lg-3">
+      <div class="col-md-3">test L
+      </div>
+      <div class="col-md-3">Test R</div>
+   </div>
+</div>
+<!-- Tab-Test-Content-End -->
+
           </div>
           <!-- Tabs navs end-->
         </div>
