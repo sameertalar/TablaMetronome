@@ -74,7 +74,7 @@
                 id="rangeTempo"
                 type="range"
                 min="30"
-                max="300"
+                max="400"
                 step="5"
                 value="90"
               />
@@ -152,8 +152,8 @@ Welcome</textarea
         <div class="col-lg-4 text-center">
           <div class="row mt-lg-2">
             <div class="col d-flex flex-row text-center"> 
-              <label class="pl-5 ms-2" for="form-check-metronome">Metronome</label>
-              <div class="form-check form-switch ms-2">
+              <label class="pl-5 ms-1" for="form-check-metronome">Metronome</label>
+              <div class="form-check form-switch ms-1">
                 <input
                 id="form-check-metronome"
                   class="form-check-input form-check-metronome"
@@ -162,7 +162,7 @@ Welcome</textarea
                   
                 />
               </div>
-              <label class="pl-3 ms-2" for="form-check-offbeat">Offbeat</label>
+              <label class="pl-3 ms-1" for="form-check-offbeat">Offbeat</label>
               <div class="form-check form-switch ms-2">
                 <input
                 id="form-check-offbeat"
@@ -172,7 +172,13 @@ Welcome</textarea
                   checked
                 />
               </div>
-
+              <button
+              id="btnScreenOn"
+              type="button"
+              class="btn btn-light btn-sm"
+            >
+            <i class="fa fa-eye " aria-hidden="true"></i>
+            </button>
               </div>
           </div>
           <div class="row mt-lg-2">
@@ -182,11 +188,12 @@ Welcome</textarea
                 id="frequencyS"
                
                 class="custom-select-lg ms-1"
-              >                
+              >    
+              <option selected>700</option>            
                 <option >1200</option>
                 <option>2000</option>
                 <option>3000</option>
-                <option selected>4000</option>
+                <option >4000</option>
                 <option>5000</option>
               </select>
               <select
@@ -196,8 +203,8 @@ Welcome</textarea
             >
               <option>100</option>
               <option>200</option>
-              <option>350</option>
-              <option selected>700</option>
+              <option selected>350</option>
+              <option >700</option>
               <option>1200</option>
               <option>2000</option>
               <option>4000</option>
@@ -721,6 +728,7 @@ Welcome</textarea
         <button
         type="button"
         class="btn btn-sm small btn-secondary"
+        id="defaultButton"
         onclick="populateNote(this)"
         data-notes="घे.घे|ति.ट|के.के|ना.ना|के.के|ति.ट|घे.घे|ना.ना"
       >
@@ -738,7 +746,7 @@ Welcome</textarea
       <div class="col-md-3"> 
         <button
         type="button"
-        id="defaultButton"
+        
         class="btn btn-sm small btn-secondary"
         onclick="populateNote(this)"
         data-notes="ति|र|कि|ट|ना|क|ता|क"
@@ -831,9 +839,9 @@ Welcome</textarea
     <div class="fixed-bottom">
       <div style="float: right">
         <a
-          class="bg-dark border rounded-circle p-2"
+          class="bg-dark border rounded-circle border-light p-1"
           href="#settings"
-          style="color: #495057; font-size: 25px; text-decoration: none"
+          style="color: #495057; font-size: 10px; text-decoration: none"
           aria-hidden="true"
         >
           <video
@@ -841,7 +849,7 @@ Welcome</textarea
             controls
             loop
             muted
-            style="width: 12px; height: 8px"
+            style="width: 15px; height: 10px"
           >
             <source src="lib/video_dummy.mp4" type="video/mp4" />
           </video>
@@ -854,7 +862,7 @@ Welcome</textarea
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 
-    <script src="lib/script.js?ver=1.1"></script>
+    <script src="lib/script.js?ver=1.2"></script>
     <script>
       function populateNote(value) {
         $("#notesText").val(value.dataset.notes);
