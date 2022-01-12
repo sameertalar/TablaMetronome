@@ -7,6 +7,11 @@ textarea {
   width: 10px;
 }
 
+.tablaBole {
+  height: 140px;
+  vertical-align: center;
+}
+
 #playground {
   font-weight: 600;
 
